@@ -1,0 +1,94 @@
+<resources>
+
+    <!-- ActivityWelcome -->
+    <string name="action_settings">Configurações</string>
+    <string name="welcome_title">Bem-vindo ao donee!</string>
+    <string name="welcome_email">endereço de e-mail</string>
+    <string name="welcome_email_error">Por favor, forneça um e-mail válido</string>
+    <string name="welcome_password">senha</string>
+    <string name="welcome_password_error">A senha é muito curta (mín. 8 caracteres)</string>
+    <string name="welcome_login">ENTRAR</string>
+    <string name="welcome_forgot">Esqueceu sua senha?</string>
+
+    <!-- Error messages -->
+    <string name="login_failed">O e-mail e/ou senha fornecidos não pertencem a nenhum usuário coletor</string>
+    <string name="network_error">Por favor, verifique sua conexão à internet</string>
+    <string name="server_error">Um erro no servidor interrompeu esta operação</string>
+    <string name="unknown_error">Um erro desconhecido interrompeu esta operação</string>
+    <string name="session_expired">Sua sessão expirou</string>
+
+    <!-- Navigation drawer items -->
+    <string name="nav_category_collect">Coleta de dados</string>
+    <string name="nav_forms">Formulários</string>
+    <string name="nav_drafts">Rascunhos</string>
+    <string name="nav_outbox">Caixa de saída</string>
+    <string name="nav_category_more">Mais</string>
+    <string name="nav_settings">Configurações</string>
+    <string name="nav_logout">Encerrar sessão</string>
+
+    <string name="add_more_users">Adicionar mais usuários</string>
+    <string name="no_other_users">Nenhum outro usuário</string>
+
+    <!-- Dialog items -->
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="ok">OK</string>
+    <string name="confirmation_title">Tem certeza?</string>
+    <string name="logout_confirmation_question">Não se preocupe, nenhuma coleta será perdida.</string>
+    <string name="switched_to">Alterado para</string>
+
+    <!-- FragmentForms -->
+    <string name="no_category">Sem categoria</string>
+    <string name="forms_empty">Não há formulários para exibir</string>
+    <string name="forms_error">Erro ao carregar formulários</string>
+    <string name="forms_error_internet">Sem conexão à internet</string>
+    <string name="retry">Repetir</string>
+    <string name="refresh">Atualizar</string>
+    <string name="forms_refreshing_list">Atualizando formulários no servidor…</string>
+
+    <!-- FragmentCollections -->
+    <string name="unpublished_forms">Formulários deletados</string>
+    <string name="collections_action_edit">EDITAR</string>
+    <string name="collections_action_delete">EXCLUIR</string>
+    <string name="action_delete_all">Excluir todos</string>
+    <string name="action_submit">Enviar todos</string>
+    <string name="submit_offline_hint">Por favor, conecte-se à internet e tente novamente.</string>
+    <string name="submit_error">Você está offline!</string>
+    <string name="delete_draft_success">Todos os rascunhos foram excluídos</string>
+    <string name="delete_outbox_success">Todas as coletas foram excluídas</string>
+    <string name="collections_empty">Não há itens para exibir</string>
+    <string name="sender_no_forms">Não há coletas na caixa de saída</string>
+
+    <!-- ActivityCollect -->
+    <string name="validate_fields">Validar campos</string>
+    <string name="submit_form">Submeter coleta</string>
+    <string name="default_spinner_hint">Selecionar…</string>
+    <string name="image_action_camera">Tirar foto</string>
+    <string name="image_action_gallery">Escolher foto</string>
+    <string name="image_thumbnail">Miniatura</string>
+    <string name="collect_no_error">Nenhum erro encontrado</string>
+    <string name="getting_location">Obtendo localização atual…</string>
+    <string name="saving_form">Salvando dados coletados…</string>
+    <string name="title_saved">A coleta foi salva</string>
+    <string name="message_saved_draft">Continue o preenchimento em Rascunhos.</string>
+    <string name="message_saved_outbox">Confira sua Caixa de saída para enviá-la.</string>
+    <string name="title_error">A coleta não foi salva</string>
+    <string name="message_error">Por favor, tente novamente.</string>
+    <string name="form_empty">Este formulário não possui campos</string>
+    <string name="form_error">Erro ao carregar este formulário</string>
+
+    <!-- Notifications -->
+    <string name="sending_collections">Enviando coletas ao servidor…</string>
+    <string name="sending_failed">Erro ao enviar coletas ao servidor</string>
+    <string name="sending_failed_more">Algumas coletas não foram enviadas</string>
+    <string name="sending_finished">Envio de coletas concluído</string>
+    <string name="sending_finished_more">Sua caixa de saída está vazia</string>
+    <string name="of">de</string>
+
+    <!-- FragmentSettings -->
+    <string name="settings_delete_user">Remover usuário deste dispositivo</string>
+    <string name="settings_delete_user_hint">Todas as coletas serão perdidas.</string>
+    <string name="user_deleted">O usuário foi removido do dispositivo</string>
+    <string name="delete_confirmation_question">Todos os seus dados serão perdidos!</string>
+
+</resources>

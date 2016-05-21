@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <shape
+            android:shape="rectangle">
+
+            <stroke
+                android:color="@color/error_border_red"
+                android:width="@dimen/general_border" />
+
+            <solid android:color="@android:color/white" />
+        </shape>
+    </item>
+    <item>
+        <bitmap android:src="@drawable/spinner_arrow"
+            android:gravity="center_vertical|right"/>
+    </item>
+</layer-list>

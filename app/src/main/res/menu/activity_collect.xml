@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="me.avelar.donee.view.FragmentForms">
+
+    <item android:id="@+id/action_validate"
+        android:title="@string/validate_fields"
+        android:icon="@drawable/ic_validate"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_submit"
+        android:title="@string/submit_form"
+        android:icon="@drawable/ic_save"
+        app:showAsAction="ifRoom" />
+
+</menu>

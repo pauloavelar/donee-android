@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/form_list_row_height" >
+
+    <android.support.v7.widget.CardView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:paddingRight="5dp"
+            android:paddingEnd="5dp"
+            tools:ignore="RtlSymmetry">
+
+            <ImageView
+                android:id="@+id/form_row_icon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_placeholder"
+                android:contentDescription="@null" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_toRightOf="@id/form_row_icon"
+                android:layout_toEndOf="@id/form_row_icon"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" >
+
+                <TextView
+                    android:id="@+id/form_row_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="18"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:ellipsize="end"
+                    android:textColor="@color/darkish_gray"
+                    android:singleLine="true"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:id="@+id/form_row_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="14"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/darkish_gray" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="me.avelar.donee.view.FragmentForms">
+
+    <item android:id="@+id/action_delete_all"
+        android:title="@string/action_delete_all"
+        android:icon="@drawable/ic_delete_all"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_submit"
+        android:title="@string/action_submit"
+        android:icon="@drawable/ic_submit"
+        app:showAsAction="ifRoom" />
+
+</menu>

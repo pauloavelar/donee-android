@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/image_field_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:ellipsize="end"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/darkish_gray"
+        android:singleLine="true"
+        android:gravity="center_vertical" />
+
+    <LinearLayout
+        android:id="@+id/image_field_actions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:background="@drawable/image_bg_default"
+        android:baselineAligned="false">
+
+        <RelativeLayout
+            android:id="@+id/image_action_camera"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/image_action_camera_icon"
+                android:src="@drawable/ic_take_photo"
+                android:layout_width="match_parent"
+                android:layout_margin="20dp"
+                android:layout_height="40dp"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/image_action_camera"
+                android:textSize="@dimen/image_action_text"
+                android:textAllCaps="true"
+                android:layout_below="@id/image_action_camera_icon"
+                android:layout_centerHorizontal="true"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/image_action_gallery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/image_action_gallery_icon"
+                android:src="@drawable/ic_pick_gallery"
+                android:layout_width="match_parent"
+                android:layout_margin="20dp"
+                android:layout_height="40dp"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/image_action_gallery"
+                android:textAllCaps="true"
+                android:textSize="@dimen/image_action_text"
+                android:layout_below="@id/image_action_gallery_icon"
+                android:layout_centerHorizontal="true"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/image_thumbnail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/image_thumbnail_view"
+                android:src="@drawable/donee_logo"
+                android:layout_width="match_parent"
+                android:layout_margin="5dp"
+                android:layout_height="70dp"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/image_thumbnail"
+                android:textSize="@dimen/image_action_text"
+                android:textAllCaps="true"
+                android:layout_below="@id/image_thumbnail_view"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

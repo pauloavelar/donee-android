@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="donee_blue_light">#4bf</color>
+    <color name="donee_blue_dark">#4a8abe</color>
+    <color name="donee_blue_darker">#486ea0</color>
+    <color name="donee_blue_dark_80">#cc4a8abe</color>
+    <color name="donee_green">#b1d137</color>
+    <color name="donee_green_dark">#8eaa2c</color>
+    <color name="donee_green_darker">#7b9a2c</color>
+    <color name="bg_white_start">#d1d1d1</color>
+    <color name="bg_white_end">#c2c2c2</color>
+    <color name="bg_splash_start">#dfeeee</color>
+    <color name="bg_splash_end">#c7e0e0</color>
+    <color name="light_gray">#d9e5e5</color>
+    <color name="dark_gray">#333</color>
+    <color name="darkish_gray">#666</color>
+    <color name="red">#F00</color>
+    <color name="error_border_red">@color/red</color>
+    <color name="error_bg_red">#ff6250</color>
+    <color name="shadow">#82424446</color>
+</resources>

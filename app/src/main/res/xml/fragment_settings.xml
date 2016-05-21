@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent" >
+
+    <Preference
+        android:key="delete_user"
+        android:title="@string/settings_delete_user"
+        android:summary="@string/settings_delete_user_hint" />
+
+</PreferenceScreen>

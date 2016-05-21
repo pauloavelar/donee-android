@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Button">
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:minWidth">@dimen/button_height</item>
+        <item name="android:backgroundTint">@color/donee_green</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:paddingLeft">@dimen/button_padding_x</item>
+        <item name="android:paddingRight">@dimen/button_padding_x</item>
+        <item name="android:textSize">@dimen/button_text</item>
+    </style>
+
+    <style name="ProgressBar">
+        <item name="android:indeterminateTint">@color/donee_green</item>
+        <item name="android:indeterminateTintMode">src_in</item>
+    </style>
+
+</resources>

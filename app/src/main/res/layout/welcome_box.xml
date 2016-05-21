@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/welcome_box"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/welcome_box_bg"
+    android:paddingTop="@dimen/box_padding_y"
+    android:gravity="center_vertical"
+    android:paddingBottom="@dimen/box_padding_y"
+    android:paddingLeft="@dimen/box_padding_x"
+    android:paddingRight="@dimen/box_padding_x">
+
+    <EditText
+        style="@style/EditText"
+        android:id="@+id/welcome_email"
+        android:layout_width="match_parent"
+        android:drawableStart="@drawable/ic_username"
+        android:drawableLeft="@drawable/ic_username"
+        android:inputType="textEmailAddress"
+        android:fontFamily="sans-serif"
+        android:imeOptions="actionNext"
+        android:hint="@string/welcome_email" />
+
+    <EditText
+        style="@style/EditText"
+        android:id="@+id/welcome_password"
+        android:layout_width="match_parent"
+        android:layout_below="@id/welcome_email"
+        android:drawableLeft="@drawable/ic_password"
+        android:drawableStart="@drawable/ic_password"
+        android:inputType="textPassword"
+        android:fontFamily="sans-serif"
+        android:imeOptions="actionGo"
+        android:hint="@string/welcome_password" />
+
+    <Button
+        style="@style/Button"
+        android:id="@+id/welcome_btn_login"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/welcome_password"
+        android:layout_alignLeft="@id/welcome_password"
+        android:layout_alignStart="@id/welcome_password"
+        android:text="@string/welcome_login" />
+
+    <FrameLayout
+        android:id="@+id/welcome_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:layout_alignTop="@id/welcome_btn_login"
+        android:layout_alignBottom="@id/welcome_btn_login"
+        android:layout_alignLeft="@id/welcome_btn_login"
+        android:layout_alignStart="@id/welcome_btn_login"
+        android:layout_alignRight="@id/welcome_btn_login"
+        android:layout_alignEnd="@id/welcome_btn_login" >
+
+        <ProgressBar
+            style="@style/ProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:indeterminate="true"
+            android:layout_margin="4dp"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/welcome_forgot"
+        android:text="@string/welcome_forgot"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height"
+        android:textSize="@dimen/text_h5"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:layout_alignTop="@id/welcome_btn_login"
+        android:layout_alignRight="@id/welcome_password"
+        android:layout_alignEnd="@id/welcome_password"
+        android:layout_marginLeft="@dimen/edit_text_margin"
+        android:layout_marginRight="@dimen/edit_text_margin" />
+
+</RelativeLayout>

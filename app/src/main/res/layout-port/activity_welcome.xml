@@ -1,0 +1,80 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/welcome_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@drawable/welcome_bg_port"
+    android:padding="@dimen/welcome_padding_x"
+    android:animateLayoutChanges="true"
+    tools:context=".ActivityWelcome">
+    <requestFocus />
+
+    <ImageView
+        android:id="@+id/welcome_logo"
+        android:src="@drawable/donee_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/app_name" />
+
+    <ImageView
+        android:id="@+id/welcome_title"
+        android:src="@drawable/donee_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/logo_padding"
+        android:layout_below="@id/welcome_logo"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/app_name" />
+
+    <FrameLayout
+        android:id="@+id/welcome_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/welcome_title">
+
+        <TextView
+            android:id="@+id/welcome_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:clickable="true"
+            android:layout_margin="@dimen/error_box_margin"
+            android:background="@drawable/error_box_bg"
+            android:text="@string/welcome_email_error"
+            android:textSize="@dimen/error_text"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:padding="@dimen/error_box_padding" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/welcome_footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/donee_twitter"
+        android:textSize="@dimen/text_h4"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true" />
+
+    <FrameLayout
+        android:id="@+id/welcome_box_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/welcome_error_layout"
+        android:layout_above="@id/welcome_footer">
+
+        <include layout="@layout/welcome_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical" />
+
+    </FrameLayout>
+
+</RelativeLayout>

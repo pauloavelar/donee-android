@@ -1,0 +1,60 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="DoneeTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="actionBarDivider">@null</item>
+        <item name="colorPrimary">@color/donee_blue_dark</item>
+        <item name="colorPrimaryDark">@color/donee_blue_darker</item>
+        <item name="colorAccent">@color/donee_green</item>
+        <item name="drawerArrowStyle">@style/DoneeTheme.DrawerArrowToggle</item>
+        <item name="android:colorActivatedHighlight">@color/donee_blue_dark</item>
+        <item name="android:colorForeground">@color/darkish_gray</item>
+    </style>
+
+    <style name="DoneeTheme.DrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@android:color/white</item>
+    </style>
+
+    <!-- ActivityWelcome theme -->
+    <style name="WelcomeTheme" parent="Theme.AppCompat.Light.NoActionBar" />
+
+    <style name="ActivityTitle">
+        <item name="android:textColor">@color/donee_blue_dark</item>
+        <item name="android:textSize">@dimen/activity_title</item>
+        <item name="android:layout_marginBottom">@dimen/title_margin</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="NormalText">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/normal_text</item>
+    </style>
+
+    <style name="EditText">
+        <item name="android:layout_height">@dimen/edit_text</item>
+        <item name="android:background">@drawable/edit_text_bg</item>
+        <item name="android:paddingTop">@dimen/edit_text_padding_y</item>
+        <item name="android:paddingRight">@dimen/edit_text_padding_x</item>
+        <item name="android:paddingBottom">@dimen/edit_text_padding_y</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textSize">@dimen/edit_text_size</item>
+        <item name="android:layout_margin">@dimen/edit_text_margin</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:minWidth">@dimen/button_height</item>
+        <item name="android:background">@drawable/button_bg</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:paddingLeft">@dimen/button_padding_x</item>
+        <item name="android:paddingRight">@dimen/button_padding_x</item>
+        <item name="android:textSize">@dimen/button_text</item>
+    </style>
+
+    <style name="ProgressBar" />
+
+    <style name="SplashTheme" parent="WelcomeTheme">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+</resources>
