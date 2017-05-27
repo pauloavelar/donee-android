@@ -20,6 +20,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
+
 import java.util.ArrayList;
 
 import me.avelar.donee.R;
@@ -138,7 +140,9 @@ public class FragmentForms extends Fragment implements Updatable,
 
         // ListView setup
         mFormsAdapter = new FormsAdapter(getActivity());
-        mLvForms.setAdapter(mFormsAdapter);
+        AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(mFormsAdapter);
+        animationAdapter.setAbsListView(mLvForms);
+        mLvForms.setAdapter(animationAdapter);
         mLvForms.setOnItemClickListener(this);
 
         // registering broadcast receivers
@@ -252,7 +256,7 @@ public class FragmentForms extends Fragment implements Updatable,
         if (message != null) mTvMessage.setText(message);
 
         mPbLoading.setVisibility(newState == ViewState.LOADING      ? View.VISIBLE : View.INVISIBLE);
-        //mLvForms.setVisibility  (newState == ViewState.LOADED_OK    ? View.VISIBLE : View.INVISIBLE);
+        mLvForms.setVisibility  (newState == ViewState.LOADED_OK    ? View.VISIBLE : View.INVISIBLE);
         mVwEmpty.setVisibility  (newState == ViewState.LOADED_EMPTY ? View.VISIBLE : View.INVISIBLE);
         mVwError.setVisibility  (newState == ViewState.LOADED_ERROR ? View.VISIBLE : View.INVISIBLE);
     }
