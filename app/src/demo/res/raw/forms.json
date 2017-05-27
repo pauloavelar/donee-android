@@ -1,162 +1,129 @@
 [
   {
     "id": "1",
-    "category": "Casos de uso reais",
-    "name": "Pesquisa Socio-econômica",
-    "description": "Produzida pela Associação de Comerciantes",
+    "category": "Actual Use Cases",
+    "name": "Consumer Demographic Survey",
+    "description": "Sponsored by Small Businesses Association",
     "hasIcon": true,
     "fields": [
       {
         "id": "1",
         "type": "TEXT",
-        "label": "Nome completo",
+        "label": "Full name",
         "rule": {
           "regexp": ".+ .+",
           "required": true,
-          "message": "Favor informar nome e sobrenome"
+          "message": "Please provide a first and a last name"
         }
       },
       {
         "id": "2",
         "type": "RADIO",
-        "label": "Sexo",
+        "label": "Gender",
         "options": [
-          "Masculino",
-          "Feminino"
+          "Male",
+          "Female"
         ],
         "rule": {
           "required": true,
-          "message": "Favor informar o sexo"
+          "message": "Please select the gender"
         }
       },
       {
         "id": "3",
         "type": "TEXT",
-        "label": "RG"
-      },
-      {
-        "id": "4",
-        "type": "TEXT",
-        "label": "CPF (somente números)",
-        "rule": {
-          "required": true,
-          "regexp": "(?!(\\d)\\1{10})\\d{11}",
-          "message": "Favor informar o CPF sem pontos e traços"
-        }
+        "label": "Social Security Number"
       },
       {
         "id": "5",
         "type": "TEXT",
-        "label": "Data de nascimento (DD/MM/AAAA)",
+        "label": "Birth Date (MM/DD/YYYY)",
         "rule": {
           "required": true,
-          "regexp": "(0[1-9]|1[0-9]|2[0-9]|3[0-1])/(0[1-9]|1[0-2])/(19[0-9][0-9]|20[0-9][0-9])",
-          "message": "Favor informar data de nascimento no formato indicado"
+          "regexp": "(0[1-9]|1[0-2])/(0[1-9]|1[0-9]|2[0-9]|3[0-1])/(19[0-9][0-9]|20[0-9][0-9])",
+          "message": "Please provide a birth date in the correct format"
         }
       },
       {
         "id": "6",
         "type": "TEXT",
-        "label": "Município de residência",
+        "label": "City",
         "rule": {
           "required": true,
-          "message": "Favor informar o município de residência"
+          "message": "Please provide a city"
         }
       },
       {
         "id": "7",
         "type": "SELECT",
-        "label": "Estado de residência",
+        "label": "State",
         "options": [
-          "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal",
-          "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul",
-          "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro",
-          "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina",
-          "São Paulo", "Sergipe", "Tocantins"
+          "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
+          "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
+          "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan",
+          "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
+          "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio",
+          "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota",
+          "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia",
+          "Wisconsin", "Wyoming"
         ],
-        "starting": [ "São Paulo" ],
+        "starting": [ "California" ],
         "rule": {
           "required": true,
-          "message": "Favor informar o estado de residência"
+          "message": "Please select a state"
         }
       },
       {
         "id": "8",
         "type": "RADIO",
-        "label": "Estado Civil",
-        "options": [
-          "Solteiro(a)", "Casado(a)", "Separado(a)", "Divorciado(a)", "Viúvo(a)", "União Estável"
-        ],
+        "label": "Marital Status",
+        "options": [ "Single", "Married", "Divorced", "Widowed" ],
         "rule": {
           "required": true,
-          "message": "Favor informar o Estado Civil"
+          "message": "Please select a marital status"
         }
       },
       {
         "id": "9",
         "type": "NUMBER",
-        "label": "Quantidade de filhos",
+        "label": "Children",
         "starting": [ "0" ],
         "rule": {
           "required": true,
           "minValue": 0,
-          "message": "Favor informar a quantidade correta de filhos"
+          "message": "Please provide the number of children"
         }
-      },
-      {
-        "id": "10",
-        "type": "RADIO",
-        "label": "Escolaridade",
-        "hint": "Escolaridades disponíveis",
-        "options": [
-          "Ensino Fundamental incompleto", "Ensino Fundamental completo",
-          "Ensino Médio incompleto", "Ensino Médio completo",
-          "Ensino Superior incompleto", "Ensino Superior completo",
-          "Pós-graduação"
-        ],
-        "rule": {
-          "required": true,
-          "message": "Favor selecionar a escolaridade"
-        }
-      },
-      {
-        "id": "11",
-        "type": "CHECK",
-        "label": "Bens que possui em sua residência",
-        "options": [
-          "TV Plasma/LCD/LED", "Refrigerador", "Microondas", "Automóvel próprio", "Fogão a gás",
-          "Cooktop ou fogão elétrico", "Videogame", "Computador ou notebook", "Ar condicionado"
-        ]
       },
       {
         "id": "12",
         "type": "CHECK",
-        "label": "Serviços que assina ou contrata",
+        "label": "Services and subscriptions",
         "options": [
-          "TV a Cabo", "Internet Banda Larga", "Plano pós-pago de celular", "Plano de saúde",
-          "Seguro de automóvel", "Serviço de streaming de música", "Serviço de streaming de vídeo",
-          "Academia de musculação", "Assinatura de revistas ou jornais"
+          "Cable TV", "Broadband Internet", "Cell phone contract", "Health Insurance",
+          "Car Insurance", "Music Streaming Services Subscription",
+          "Video Streaming Services Subscription", "Gym and Sport Clubs",
+          "Magazine and Newspapers Subscriptions"
         ]
       },
       {
         "id": "13",
         "type": "CHECK",
-        "label": "Três fatores mais decisivos em suas compras",
+        "label": "Three decisive factors in your purchases",
         "options": [
-          "Preço", "Qualidade", "Garantia e pós-venda", "Atendimento durante a compra",
-          "Loja vendedora", "Necessidade", "Status ou marca", "Potencial de revenda"
+          "Price", "Quality", "Warranty and support", "Treament during purchase",
+          "Retailer", "Need vs cost", "Brand status", "Resale potential"
         ],
         "rule": {
           "required": true,
           "minValue": 3,
           "maxValue": 3,
-          "message": "Favor selecionar três itens da lista"
+          "message": "Please select 3 items on the list"
         }
       },
       {
         "id": "14",
         "type": "TEXT",
-        "label": "Observações",
+        "label": "Comments",
         "multiline": true,
         "height": 100
       }
@@ -164,41 +131,41 @@
   },
   {
     "id": "2",
-    "category": "Casos de uso reais",
-    "name": "Gestão Integrada de Pragas de Milho",
-    "description": "Registro de resistência de pragas",
+    "category": "Actual Use Cases",
+    "name": "Integrated Pest Monitoring for Corn",
+    "description": "Log of insect resistance observations",
     "useLocation": true,
     "hasIcon": true,
     "fields": [
       {
         "id": "15",
         "type": "SELECT",
-        "label": "Híbrido",
+        "label": "Hybrid Brand",
         "options": [
-          "Agroeste", "Bayer", "Dekalb", "Pioneer", "Semeali", "Syngenta", "Outros"
+          "Bayer", "Dekalb", "Pioneer", "Syngenta", "Others"
         ],
         "rule": {
           "required": true,
-          "message": "Favor selecionar a marca do híbrido observado"
+          "message": "Please select the observed hybrid's brand"
         }
       },
       {
         "id": "16",
         "type": "SELECT",
-        "label": "Estádio da cultura",
+        "label": "Growth Stage",
         "options": [
           "VE", "V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8", "V9", "V10",
           "R1", "R2", "R3", "R4", "R5", "R6"
         ],
         "rule": {
           "required": true,
-          "message": "Favor selecionar o estádio da cultura"
+          "message": "Please select the crop's growth stage"
         }
       },
       {
         "id": "17",
         "type": "SELECT",
-        "label": "Praga",
+        "label": "Pest Species",
         "options": [
           "Acromyrmex spp.", "Agrotis ipsilon", "Anurogryllus muticus",
           "Astylus variegatus", "Atarsocoris brachiariae", "Atta sexdens rubropilosa",
@@ -213,95 +180,95 @@
         ],
         "rule": {
           "required": true,
-          "message": "Favor selecionar a praga observada"
+          "message": "Please select the observed pest's species"
         }
       },
       {
         "id": "18",
         "type": "RADIO",
-        "label": "Grau de infestação",
-        "options": [ "Leve", "Médio", "Grave" ],
+        "label": "Infestation Level",
+        "options": [ "Mild", "Moderate", "Serious" ],
         "rule": {
           "required": true,
-          "message": "Favor selecionar o grau de infestação"
+          "message": "Please select the infestation level"
         }
       },
       {
         "id": "19",
         "type": "NUMBER",
-        "label": "Dano (Escala Davis)",
-        "hint": "0 a 9",
+        "label": "Damage (Davis Scale)",
+        "hint": "0 to 9",
         "starting": [ "0" ],
         "rule": {
           "required": true,
           "minValue": 0,
           "maxValue": 9,
-          "message": "Favor informar um dano na Escala Davis (0 a 9)"
+          "message": "Please provide the damage in the Davis Scale (0 to 9)"
         }
       },
       {
         "id": "20",
         "type": "IMAGE",
-        "label": "Foto da planta"
+        "label": "Plant's Picture"
       }
     ]
   },
   {
     "id": "3",
-    "category": "Demonstração de tipos de campo",
-    "name": "1. Campo de texto",
+    "category": "Field Types Demo",
+    "name": "1. Text Field",
     "hasIcon": true,
     "fields": [
       {
         "id": "21",
         "type": "TEXT",
-        "label": "Campo de texto não obrigatório",
-        "hint": "Qualquer texto em uma linha"
+        "label": "Regular Text Field",
+        "hint": "Any single line of text"
       },
       {
         "id": "22",
         "type": "TEXT",
-        "label": "Campo de texto obrigatório",
-        "hint": "Qualquer texto em uma linha",
+        "label": "Required Text Field",
+        "hint": "Any single line of text",
         "rule": {
           "required": true,
-          "message": "Este campo é obrigatório"
+          "message": "This field is required"
         }
       },
       {
         "id": "23",
         "type": "TEXT",
-        "label": "Campo de texto com 5 a 10 caracteres)",
-        "hint": "Qualquer texto com 5 a 10 caracteres",
+        "label": "Text Field with 5 to 10 characters",
+        "hint": "Any text with 5 to 10 characters",
         "rule": {
           "required": true,
           "minValue": 5,
           "maxValue": 10,
-          "message": "Favor inserir um texto com 5 a 10 caracteres"
+          "message": "Please type something with 5 to 10 characters"
         }
       },
       {
         "id": "24",
         "type": "TEXT",
-        "label": "Campo de texto com valor inicial",
-        "hint": "Este campo já vem preenchido",
-        "starting": [ "Valor inicial já preenchido" ]
+        "label": "Text Field With Starting Value",
+        "hint": "This field was already prefilled",
+        "starting": [ "Prefilled starting value" ]
       },
       {
         "id": "25",
         "type": "TEXT",
-        "label": "Campo de texto com validação avançada",
-        "hint": "Expressão regular: ^>>.+[0-9]+>>$ (ex: >>teste123>>)",
+        "label": "Text Field With Advanced Validation",
+        "hint": "Regular Expression: ^>>.+[0-9]+>>$ (ex: >>test123>>)",
         "rule": {
           "required": true,
           "regexp": "^>>.+[0-9]+>>$",
-          "message": "O valor não é válido para a expressão regular ^>>.+[0-9]+>>$"
+          "message": "Invalid value for the regular expression ^>>.+[0-9]+>>$"
         }
       },
       {
         "id": "26",
         "type": "TEXT",
-        "label": "Campo multilinha com altura definida",
+        "label": "Multiline Text Field With Custom Height",
         "multiline": true,
         "height": 120
       }
@@ -309,219 +276,219 @@
   },
   {
     "id": "4",
-    "category": "Demonstração de tipos de campo",
-    "name": "2. Campo numérico",
+    "category": "Field Types Demo",
+    "name": "2. Numeric Field",
     "hasIcon": true,
     "fields": [
       {
         "id": "27",
         "type": "NUMBER",
-        "label": "Campo numérico comum",
-        "hint": "Qualquer número (ou nenhum)"
+        "label": "Regular Numeric Field",
+        "hint": "Any number (or none)"
       },
       {
         "id": "28",
         "type": "NUMBER",
-        "label": "Campo numérico obrigatório",
-        "hint": "Qualquer número",
+        "label": "Required Numeric Field",
+        "hint": "Any number",
         "rule": {
           "required": true,
-          "message": "Este campo é obrigatório"
+          "message": "This field is required"
         }
       },
       {
         "id": "29",
         "type": "NUMBER",
-        "label": "Campo numérico já preenchido",
-        "hint": "O valor inicial é 2017",
+        "label": "Numeric Field With Starting Value",
+        "hint": "The prefilled value is 2017",
         "starting": [ "2017" ]
       },
       {
         "id": "29",
         "type": "NUMBER",
-        "label": "Campo numérico com intervalo de valor",
-        "hint": "Um valor entre -7,5 e 7,5",
+        "label": "Numeric Field With Range Validation",
+        "hint": "Any value between -7.5 and 7.5",
         "rule": {
           "required": true,
           "minValue": -7.5,
           "maxValue":  7.5,
-          "message": "Favor inserir um valor entre -7,5 e 7,5"
+          "message": "Please provide a value between -7.5 and 7.5"
         }
       }
     ]
   },
   {
     "id": "5",
-    "category": "Demonstração de tipos de campo",
-    "name": "3. Menu dropdown",
+    "category": "Field Types Demo",
+    "name": "3. Dropdown Menu",
     "hasIcon": true,
     "fields": [
       {
         "id": "30",
         "type": "SELECT",
-        "label": "Menu comum não obrigatório",
-        "options": [ "Valor 1", "Valor 2", "Valor 3" ]
+        "label": "Regular Dropdown Menu",
+        "options": [ "Item 1", "Item 2", "Item 3" ]
       },
       {
         "id": "31",
         "type": "SELECT",
-        "label": "Menu comum obrigatório",
-        "options": [ "Valor 1", "Valor 2", "Valor 3" ],
+        "label": "Required Dropdown Menu",
+        "options": [ "Item 1", "Item 2", "Item 3" ],
         "rule": {
           "required": true,
-          "message": "Por favor selecione uma opção"
+          "message": "Please select an item"
         }
       },
       {
         "id": "32",
         "type": "SELECT",
-        "label": "Menu com texto customizado de dica",
-        "hint": "Três valores possíveis",
-        "options": [ "Valor 1", "Valor 2", "Valor 3" ]
+        "label": "Dropdown Menu With Custom Hint",
+        "hint": "There are 3 possible values",
+        "options": [ "Item 1", "Item 2", "Item 3" ]
       },
       {
         "id": "33",
         "type": "SELECT",
-        "label": "Menu com valor inicial",
-        "options": [ "Valor 1", "Valor 2", "Valor 3" ],
-        "starting": [ "Valor 2" ]
+        "label": "Dropdown Menu With Starting Value",
+        "options": [ "Item 1", "Item 2", "Item 3" ],
+        "starting": [ "Item 2" ]
       }
     ]
   },
   {
     "id": "6",
-    "category": "Demonstração de tipos de campo",
-    "name": "4. Campo de seleção única",
+    "category": "Field Types Demo",
+    "name": "4. Radio Button (single selection)",
     "hasIcon": true,
     "fields": [
       {
         "id": "34",
         "type": "RADIO",
-        "label": "Campo de seleção única comum não obrigatório",
-        "options": [ "Valor 1", "Valor 2", "Valor 3" ]
+        "label": "Regular Radio Button",
+        "options": [ "Item 1", "Item 2", "Item 3" ]
       },
       {
         "id": "35",
         "type": "RADIO",
-        "label": "Menu comum obrigatório",
-        "options": [ "Valor 1", "Valor 2", "Valor 3" ],
+        "label": "Required Radio Button",
+        "options": [ "Item 1", "Item 2", "Item 3" ],
         "rule": {
           "required": true,
-          "message": "Por favor selecione uma opção"
+          "message": "Please select an item"
         }
       },
       {
         "id": "36",
         "type": "RADIO",
-        "label": "Menu com valor inicial",
-        "options": [ "Valor 1", "Valor 2", "Valor 3" ],
-        "starting": [ "Valor 2" ]
+        "label": "Radio Button With Starting Value",
+        "options": [ "Item 1", "Item 2", "Item 3" ],
+        "starting": [ "Item 2" ]
       }
     ]
   },
   {
     "id": "7",
-    "category": "Demonstração de tipos de campo",
-    "name": "5. Campo de múltipla escolha",
+    "category": "Field Types Demo",
+    "name": "5. Checkbox (multiple selection)",
     "hasIcon": true,
     "fields": [
       {
         "id": "37",
         "type": "CHECK",
-        "label": "Checkbox comum não obrigatório",
-        "options": [ "Valor 1", "Valor 2", "Valor 3" ]
+        "label": "Regular Checkbox",
+        "options": [ "Item 1", "Item 2", "Item 3" ]
       },
       {
         "id": "38",
         "type": "CHECK",
-        "label": "Menu comum obrigatório",
-        "options": [ "Valor 1", "Valor 2", "Valor 3" ],
+        "label": "Required Checkbox",
+        "options": [ "Item 1", "Item 2", "Item 3" ],
         "rule": {
           "required": true,
-          "message": "Por favor selecione ao menos uma opção"
+          "message": "Please select at least one item"
         }
       },
       {
         "id": "39",
         "type": "CHECK",
-        "label": "Campo de múltipla escolha pré-preenchido",
-        "options": [ "Valor 1", "Valor 2", "Valor 3", "Valor 4" ],
-        "starting": [ "Valor 2", "Valor 4" ]
+        "label": "Prefilled Checkbox",
+        "options": [ "Item 1", "Item 2", "Item 3", "Item 4" ],
+        "starting": [ "Item 2", "Item 4" ]
       },
       {
         "id": "40",
         "type": "CHECK",
-        "label": "Campo de múltipla escolha com limites",
+        "label": "Checkbox With Validation",
         "options": [
-          "Valor 1", "Valor 2", "Valor 3", "Valor 4", "Valor 5", "Valor 6"
+          "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"
         ],
         "rule": {
           "required": true,
           "minValue": 2,
           "maxValue": 5,
-          "message": "Selecione de 2 a 5 itens"
+          "message": "Please select 2 to 5 items"
         }
       }
     ]
   },
   {
     "id": "8",
-    "category": "Demonstração de tipos de campo",
-    "name": "6. Campo de imagem",
+    "category": "Field Types Demo",
+    "name": "6. Image Field",
     "hasIcon": true,
     "fields": [
       {
         "id": "41",
         "type": "IMAGE",
-        "label": "Campo de imagem não obrigatório"
+        "label": "Regular Image Field"
       },
       {
         "id": "42",
         "type": "IMAGE",
-        "label": "Campo de imagem obrigatório",
+        "label": "Required Image Field",
         "rule": {
           "required": true,
-          "message": "Favor tirar uma foto ou selecionar uma imagem da galeria"
+          "message": "Please take a picture or select one from the Gallery"
         }
       }
     ]
   },
   {
     "id": "9",
-    "category": "Geolocalização",
-    "name": "Formulário sem geolocalização",
-    "description": "Este formulário salva apenas os campos",
+    "category": "Geolocation",
+    "name": "Form Without Geolocation",
+    "description": "This form only stores its fields",
     "fields": [
       {
         "id": "43",
         "type": "TEXT",
-        "label": "Texto qualquer"
+        "label": "Any text"
       }
     ]
   },
   {
     "id": "10",
-    "category": "Geolocalização",
-    "name": "Formulário com geolocalização",
-    "description": "Salva a latitude e longitude de submissão",
+    "category": "Geolocation",
+    "name": "Geolocated Form",
+    "description": "Saves the coordinates of the point from which it was submitted",
     "useLocation": true,
     "fields": [
       {
         "id": "44",
         "type": "TEXT",
-        "label": "Texto qualquer"
+        "label": "Any text"
       }
     ]
   },
   {
     "id": "11",
-    "name": "Formulário sem categoria",
-    "description": "Exemplo de formulário não categorizado",
+    "name": "Uncategorized Form",
+    "description": "Example of a form without a category",
     "fields": [
       {
         "id": "45",
         "type": "TEXT",
-        "label": "Texto qualquer"
+        "label": "Any text"
       }
     ]
   }

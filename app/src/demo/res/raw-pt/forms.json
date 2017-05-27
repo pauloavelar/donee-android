@@ -2,7 +2,7 @@
   {
     "id": "1",
     "category": "Casos de uso reais",
-    "name": "Pesquisa Socio-econômica",
+    "name": "Pesquisa Socioeconômica",
     "description": "Produzida pela Associação de Comerciantes",
     "hasIcon": true,
     "fields": [
@@ -271,7 +271,7 @@
       {
         "id": "23",
         "type": "TEXT",
-        "label": "Campo de texto com 5 a 10 caracteres)",
+        "label": "Campo de texto com 5 a 10 caracteres",
         "hint": "Qualquer texto com 5 a 10 caracteres",
         "rule": {
           "required": true,
