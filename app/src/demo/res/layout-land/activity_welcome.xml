@@ -1,0 +1,94 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/welcome_layout"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:padding="@dimen/welcome_padding_x"
+    android:background="@drawable/welcome_bg_land"
+    android:animateLayoutChanges="true"
+    tools:context=".view.ActivityWelcome">
+
+    <FrameLayout
+        android:id="@+id/welcome_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/welcome_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:clickable="true"
+            android:layout_margin="@dimen/error_box_margin"
+            android:background="@drawable/error_box_bg"
+            android:text="@string/welcome_email_error"
+            android:textSize="@dimen/error_text"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:padding="@dimen/error_box_padding" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/welcome_error_layout"
+        android:layout_above="@id/welcome_footer">
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:baselineAligned="false"
+        tools:ignore="UselessParent">
+
+        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="40"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:animateLayoutChanges="true">
+
+            <ImageView
+                android:id="@+id/welcome_logo"
+                android:src="@drawable/donee_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null" />
+
+            <ImageView
+                android:id="@+id/welcome_title"
+                android:src="@drawable/donee_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/welcome_logo"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@string/app_name" />
+
+        </RelativeLayout>
+
+        <include layout="@layout/welcome_box"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="60" />
+
+    </LinearLayout>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/welcome_footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/donee_twitter"
+        android:textSize="@dimen/text_h4"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

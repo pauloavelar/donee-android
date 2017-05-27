@@ -168,7 +168,7 @@ public class ActivityWelcome extends Activity
             updateState(State.LOADING, 0, null);
             String email = mEtEmail.getText().toString();
             String password = mEtPassword.getText().toString();
-            WelcomeLogic.using(this).tryLogin(email, password);
+            WelcomeLogic.tryLogin(this.getApplicationContext(), email, password);
         }
     }
 

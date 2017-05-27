@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">donee</string>
     <string name="app_title" translatable="false">donee forms</string>
 
     <!-- ActivityWelcome -->

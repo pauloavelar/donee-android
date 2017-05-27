@@ -6,6 +6,7 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import java.util.ArrayList;
 
+import me.avelar.donee.BuildConfig;
 import me.avelar.donee.dao.CollectionDAO;
 import me.avelar.donee.model.Collection;
 import me.avelar.donee.model.Session;
@@ -37,8 +38,11 @@ public class CollectionLogic {
     }
 
     public static void sendOutbox(Context context) {
-        Intent senderIntent = new Intent(context,SenderIntentService.class);
-        SessionManager.validateCurrent(context);
+        Intent senderIntent = new Intent(context, SenderIntentService.class);
+        if (!BuildConfig.FLAVOR.equals("demo")) {
+            // no validation in demo mode (only difference in class)
+            SessionManager.validateCurrent(context);
+        }
         context.startService(senderIntent);
     }
 

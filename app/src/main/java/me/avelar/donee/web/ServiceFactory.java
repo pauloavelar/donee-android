@@ -45,7 +45,7 @@ public class ServiceFactory {
         return globalAdapter;
     }
 
-    public static OkHttpClient prepareClient(Context context) {
+    private static OkHttpClient prepareClient(Context context) {
         if (okHttpClient == null) {
             okHttpClient = new OkHttpClient();
             try {

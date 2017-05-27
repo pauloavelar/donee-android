@@ -1,17 +1,29 @@
-# Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to flags specified
-# in /apps/android-sdk/tools/proguard/proguard-android.txt
-# You can edit the include path and order by changing the proguardFiles
-# directive in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# Project specific ProGuard rules
 
-# Add any project specific keep options here:
+#--------------- GCM proguard configuration ------------------
+-keep class * extends java.util.ListResourceBundle {
+    protected Object[][] getContents();
+}
+-keep public class com.google.android.gms.common.internal.safeparcel.SafeParcelable {
+    public static final *** NULL;
+}
+-keepnames @com.google.android.gms.common.annotation.KeepName class *
+-keepclassmembernames class * {
+    @com.google.android.gms.common.annotation.KeepName *;
+}
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+#-------------- ProGuard settings for serialization --------------
+-keepnames class * implements android.os.Parcelable {
+    public static final ** CREATOR;
+}
+-keepclassmembers enum *
+-keep public class me.avelar.donee.view.** {
+    public *;
+    protected *;
+}
+-keep class me.avelar.donee.model.** { *; }
+
+-keepattributes Signature
+-keepattributes *Annotation*
+
+-keep class com.google.gson.**
