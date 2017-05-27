@@ -27,19 +27,19 @@ public class FormsAdapter extends BaseAdapter implements ListAdapter {
         String  category;
         Form    form;
 
-        public ListItem(String category) {
+        ListItem(String category) {
             this.isCategory = true;
             this.category   = category;
         }
 
-        public ListItem(Form form) {
+        ListItem(Form form) {
             this.isCategory = false;
             this.form       = form;
         }
 
     }
 
-    static class ViewHolder {
+    private static class ViewHolder {
         ImageView icon;
         TextView  name;
         TextView  description;
@@ -53,7 +53,7 @@ public class FormsAdapter extends BaseAdapter implements ListAdapter {
         this(context, null);
     }
 
-    public FormsAdapter(Context context, ArrayList<Form> items) {
+    private FormsAdapter(Context context, ArrayList<Form> items) {
         this.mContext = context;
         this.mOriginalItems = items;
         this.mItems = new ArrayList<>();
@@ -90,12 +90,12 @@ public class FormsAdapter extends BaseAdapter implements ListAdapter {
         notifyDataSetChanged();
     }
 
-    public void addCategory(String categoryName) {
+    private void addCategory(String categoryName) {
         if (categoryName == null) return;
         mItems.add(new ListItem(categoryName.toUpperCase()));
     }
 
-    public void addForm(Form form) {
+    private void addForm(Form form) {
         if (form == null) return;
         mItems.add(new ListItem(form));
     }
@@ -172,9 +172,9 @@ public class FormsAdapter extends BaseAdapter implements ListAdapter {
             holder.name.setText(item.category);
         } else if (item.form != null) {
             if (item.form.getIconUrl() != null) {
-                Picasso.with(mContext)
-                    .load(item.form.getIconUrl())
-                    .into(holder.icon);
+                PhotoCacheLoader.loadFormIcon(mContext, item.form.getIconUrl(), holder.icon);
+            } else {
+                Picasso.with(mContext).load(R.drawable.form_placeholder).into(holder.icon);
             }
             holder.name.setText(item.form.getName());
             String description = item.form.getDescription();

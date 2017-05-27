@@ -5,8 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 
-import me.avelar.donee.web.UrlRepository;
-
 public class User implements Parcelable {
 
     @Expose private String id; // because of Javascript lack of 8bit integers
@@ -37,10 +35,6 @@ public class User implements Parcelable {
 
     public String getAccount() {
         return account;
-    }
-
-    public String getPhotoUrl() {
-        return String.format(UrlRepository.USER_PHOTO, Integer.valueOf(id));
     }
 
     public long getLastSynced() {

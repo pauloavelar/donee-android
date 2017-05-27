@@ -20,8 +20,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
-
 import java.util.ArrayList;
 
 import me.avelar.donee.R;
@@ -87,9 +85,7 @@ public class FragmentCollections extends Fragment implements Updatable, View.OnC
 
         // ListView setup
         mCollectionsAdapter = new CollectionsAdapter(getActivity());
-        AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(mCollectionsAdapter);
-        animationAdapter.setAbsListView(mLvCollections);
-        mLvCollections.setAdapter(animationAdapter);
+        mLvCollections.setAdapter(mCollectionsAdapter);
 
         if (getArguments() != null) {
             mContentType = getArguments().getInt(CollectionLogic.EXTRA_CONTENT);

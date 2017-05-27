@@ -97,7 +97,7 @@
     <string name="settings_delete_user_hint">All collected data will be lost.</string>
     <string name="user_deleted">Successfully removed from device</string>
     <string name="delete_confirmation_question">All your unsynced data will be lost!</string>
-    <string name="enable_location">This form saves the location from which it was submitted. Please enable Location in Settings.</string>
+    <string name="enable_location">This form saves the location from which it was submitted. Please enable Location in Settings and allow donee to access it.</string>
     <string name="cancel">Cancel</string>
     <string name="enable">Enable</string>
 

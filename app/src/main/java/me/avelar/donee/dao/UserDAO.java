@@ -8,17 +8,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import me.avelar.donee.controller.SessionManager;
 import me.avelar.donee.model.User;
-import me.avelar.donee.util.CircleTransform;
-import me.avelar.donee.util.FileManager;
-import me.avelar.donee.util.UserPhotoSaver;
+import me.avelar.donee.util.PhotoCacheLoader;
+import me.avelar.donee.web.UrlRepository;
 
 public final class UserDAO {
 
@@ -32,49 +30,6 @@ public final class UserDAO {
         long result = db.insertWithOnConflict(DoneeDbHelper.T_USER, null,
                 values, SQLiteDatabase.CONFLICT_REPLACE);
         if (result == DoneeDbHelper.DB_ERROR) throw new SQLException();
-    }
-
-    public static void loadPhoto(@NonNull Context context, @NonNull User user, ImageView iv) {
-        String photoName = getPhotoName(context, user);
-        if (FileManager.fileExists(context, photoName)) {
-            Picasso.with(context).load(FileManager.findFile(context, photoName)).into(iv);
-        } else {
-            fetchPhotoOnline(context, user, iv);
-        }
-    }
-
-    public static String getPhotoName(@NonNull Context context, @NonNull User user) {
-        SQLiteDatabase db = DoneeDbHelper.getInstance(context).getReadableDatabase();
-        String[] fields = { DoneeDbHelper.C_USER_PHOTO };
-        Cursor cursor = db.query(DoneeDbHelper.T_USER, fields,
-                        DoneeDbHelper.C_USER_EMAIL + " = " + user.getId(), null, null, null, null);
-
-        if (cursor.getCount() == 0) return null;
-        cursor.moveToFirst();
-        String photoName = cursor.getString(cursor.getColumnIndex(DoneeDbHelper.C_USER_PHOTO));
-        cursor.close();
-
-        return photoName;
-    }
-
-    public static void storePhotoName(@NonNull Context context, User user, String photoName) {
-        if (user == null || photoName == null) return;
-
-        ContentValues values = new ContentValues();
-        values.put(DoneeDbHelper.C_USER_PHOTO, photoName);
-
-        SQLiteDatabase db = DoneeDbHelper.getInstance(context).getWritableDatabase();
-        db.update(DoneeDbHelper.T_USER, values,
-                DoneeDbHelper.C_USER_EMAIL + " = " + user.getId(), null);
-    }
-
-    public static void fetchPhotoOnline(@NonNull final Context context,
-                                        @NonNull final User user, final ImageView iv) {
-        Picasso.with(context)
-            .load(user.getPhotoUrl())
-            .resize(UserPhotoSaver.USER_PHOTO_SIZE, UserPhotoSaver.USER_PHOTO_SIZE)
-            .centerCrop().transform(new CircleTransform())
-            .into(new UserPhotoSaver(context, user, iv));
     }
 
     @SuppressWarnings("unused")

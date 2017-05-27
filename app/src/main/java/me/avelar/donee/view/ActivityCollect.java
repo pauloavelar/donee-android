@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -20,6 +21,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -39,6 +41,7 @@ import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationServices;
 
+import java.security.Permission;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -52,30 +55,35 @@ import me.avelar.donee.model.Form;
 import me.avelar.donee.util.ConnectivityHelper;
 import me.avelar.donee.util.FieldFactory;
 import me.avelar.donee.util.IntentFactory;
+import me.avelar.donee.util.PermissionHelper;
 import me.avelar.donee.view.fields.FieldGroup;
 import me.avelar.donee.view.fields.ImageGroup;
 
 public class ActivityCollect extends AppCompatActivity implements View.OnClickListener,
         ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener {
 
-    private enum ViewState  { FORM_ERROR, FORM_EMPTY, FORM_LOADED }
-    private enum DialogType { LOCATING, SAVING, SAVED, LOCATION_DISABLED, ERROR }
-    private enum AnimationDirection { UP, DOWN }
+    private int mLocationRetries;
+
+    private enum ViewState {FORM_ERROR, FORM_EMPTY, FORM_LOADED}
+
+    private enum DialogType {LOCATING, SAVING, SAVED, LOCATION_DISABLED, ERROR}
+
+    private enum AnimationDirection {UP, DOWN}
 
     private static final int REQUEST_PICTURE_FROM_GALLERY = 12151;
-    private static final int REQUEST_PICTURE_FROM_CAMERA  = 12152;
+    private static final int REQUEST_PICTURE_FROM_CAMERA = 12152;
 
     private boolean mCanceled;
     private GoogleApiClient mGoogleApiClient;
     private Dialog mDialog;
 
-    private Form       mForm;
+    private Form mForm;
     private Collection mDraft;
 
     private int mScrollPosition;
 
-    private View       mVwError, mVwEmpty;
-    private TextView   mTvErrorMessage;
+    private View mVwError, mVwEmpty;
+    private TextView mTvErrorMessage;
     private ScrollView mSvForm;
     private ImageGroup mImageReference;
     private ArrayList<FieldGroup> mFields;
@@ -102,7 +110,10 @@ public class ActivityCollect extends AppCompatActivity implements View.OnClickLi
                 case UP:
                     mTvErrorMessage.setOnClickListener(ActivityCollect.this);
                     mTvErrorMessage.postDelayed(new Runnable() {
-                        @Override public void run() { setErrorMessage(null); }
+                        @Override
+                        public void run() {
+                            setErrorMessage(null);
+                        }
                     }, 2000);
                     break;
                 case DOWN:
@@ -151,7 +162,7 @@ public class ActivityCollect extends AppCompatActivity implements View.OnClickLi
         }
 
         // getting and validating the received form
-        mForm  = getIntent().getParcelableExtra(FormsLogic.EXTRA_FORM);
+        mForm = getIntent().getParcelableExtra(FormsLogic.EXTRA_FORM);
         mDraft = getIntent().getParcelableExtra(CollectionLogic.EXTRA_COLLECTION);
 
         // syncing activity state
@@ -214,26 +225,6 @@ public class ActivityCollect extends AppCompatActivity implements View.OnClickLi
         return true;
     }
 
-    private void clickSubmit() {
-        if (clickValidate(false)) {
-            for (FieldGroup fg : mFields) fg.commit();
-            if (mForm.usesLocation()) {
-                mCanceled = false;
-                showDialog(DialogType.LOCATING);
-                buildGoogleApiClient();
-                mGoogleApiClient.connect();
-            } else {
-                showDialog(DialogType.SAVING);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        CollectionLogic.storeCollection(ActivityCollect.this, mDraft, CollectionLogic.OUTBOX);
-                    }
-                }).start();
-            }
-        }
-    }
-
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         // saving state and variables for activity recreation
@@ -253,6 +244,27 @@ public class ActivityCollect extends AppCompatActivity implements View.OnClickLi
         super.onDestroy();
     }
 
+    private void clickSubmit() {
+        if (clickValidate(false)) {
+            for (FieldGroup fg : mFields) fg.commit();
+            if (mForm.usesLocation()) {
+                mCanceled = false;
+                showDialog(DialogType.LOCATING);
+                buildGoogleApiClient();
+                mGoogleApiClient.connect();
+                mLocationRetries = 0;
+            } else {
+                showDialog(DialogType.SAVING);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        CollectionLogic.storeCollection(ActivityCollect.this, mDraft, CollectionLogic.OUTBOX);
+                    }
+                }).start();
+            }
+        }
+    }
+
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
             .addConnectionCallbacks(this)
@@ -265,17 +277,27 @@ public class ActivityCollect extends AppCompatActivity implements View.OnClickLi
     public void onConnected(Bundle bundle) {
         if (mCanceled) return;
 
-        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (location != null) {
-            showDialog(DialogType.SAVING);
-            mDraft.addLocation(location);
-            CollectionLogic.storeCollection(this, mDraft, CollectionLogic.OUTBOX);
+        if (!PermissionHelper.checkForLocationPermission(this)) {
+            if (mDialog != null && mDialog.isShowing()) mDialog.dismiss();
+            PermissionHelper.requestLocationPermission(this);
         } else {
-            // show dialog enable locations
-            if (!ConnectivityHelper.isLocationEnabled(this)) {
-                showDialog(DialogType.LOCATION_DISABLED);
+            Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (location != null) {
+                showDialog(DialogType.SAVING);
+                mDraft.addLocation(location);
+                CollectionLogic.storeCollection(this, mDraft, CollectionLogic.OUTBOX);
+            } else if (mLocationRetries < 3) {
+                mLocationRetries++;
+                new Handler().postDelayed(new Runnable() {
+                    @Override public void run() { onConnected(null); }
+                }, 1000);
             } else {
-                showDialog(DialogType.ERROR);
+                // show dialog enable locations
+                if (!ConnectivityHelper.isLocationEnabled(this)) {
+                    showDialog(DialogType.LOCATION_DISABLED);
+                } else {
+                    showDialog(DialogType.ERROR);
+                }
             }
         }
     }
@@ -284,8 +306,24 @@ public class ActivityCollect extends AppCompatActivity implements View.OnClickLi
     public void onConnectionSuspended(int i) { }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         showDialog(DialogType.ERROR);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] results) {
+        switch (requestCode) {
+            case PermissionHelper.REQUEST_PERMISSION_GPS:
+                if (results.length > 0 && results[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission granted, continue getting the location
+                    mGoogleApiClient.reconnect();
+                    mLocationRetries = 0;
+                } else {
+                    // permission denied, just ask the user to allow it
+                    showDialog(DialogType.ERROR);
+                }
+        }
     }
 
     private void showDialog(DialogType type) {
@@ -522,8 +560,12 @@ public class ActivityCollect extends AppCompatActivity implements View.OnClickLi
                 break;
             case Dialog.BUTTON_NEUTRAL:
                 // Enable button in Location disabled dialog
-                Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(myIntent);
+                if (!PermissionHelper.checkForLocationPermission(this)) {
+                    PermissionHelper.requestLocationPermission(this);
+                } else {
+                    Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(myIntent);
+                }
                 break;
         }
     }

@@ -6,9 +6,9 @@
     <corners android:radius="4dp" />
 
     <stroke
-        android:color="@color/error_border_red"
+        android:color="@color/warning_border_yellow"
         android:width="@dimen/general_border" />
 
-    <solid android:color="@color/error_bg_red" />
+    <solid android:color="@color/warning_bg_yellow" />
 
 </shape>

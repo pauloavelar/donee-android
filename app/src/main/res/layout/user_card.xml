@@ -14,7 +14,7 @@
         android:layout_centerVertical="true"
         android:layout_width="@dimen/user_photo_size"
         android:layout_height="@dimen/user_photo_size"
-        android:background="@drawable/user_photo_none"
+        android:background="@drawable/user_placeholder"
         android:layout_marginRight="@dimen/user_photo_margin_right"
         android:layout_marginEnd="@dimen/user_photo_margin_right"
         android:contentDescription="@null" />

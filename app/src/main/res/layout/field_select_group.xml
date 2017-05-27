@@ -17,8 +17,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
         android:textColor="@color/darkish_gray"
-        android:singleLine="true"
-        android:text="Field label:"
+        android:maxLines="1"
         android:gravity="center_vertical" />
 
     <!-- style="@style/Spinner" -->

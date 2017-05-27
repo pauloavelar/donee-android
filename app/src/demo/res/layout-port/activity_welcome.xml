@@ -56,9 +56,12 @@
         android:id="@+id/welcome_footer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/donee_twitter"
-        android:textSize="@dimen/text_h4"
+        android:text="@string/demo_disclaimer"
+        android:gravity="center"
+        android:textSize="@dimen/text_h5"
         android:textStyle="bold"
+        android:padding="7dp"
+        android:background="@drawable/warning_box_bg"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true" />
 

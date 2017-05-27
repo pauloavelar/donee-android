@@ -76,6 +76,9 @@
     <string name="message_error">Por favor, tente novamente.</string>
     <string name="form_empty">Este formulário não possui campos</string>
     <string name="form_error">Erro ao carregar este formulário</string>
+    <string name="enable_location">Este formulário salva a localização de onde foi submetido. Ative a Localização nas Configurações e conceda as permissões necessárias.</string>
+    <string name="cancel">Cancelar</string>
+    <string name="enable">Habilitar</string>
 
     <!-- Notifications -->
     <string name="sending_collections">Enviando coletas ao servidor…</string>

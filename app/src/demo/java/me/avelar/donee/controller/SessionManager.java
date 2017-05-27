@@ -4,27 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
-import android.widget.Toast;
 
 import java.util.Date;
 
-import me.avelar.donee.R;
 import me.avelar.donee.dao.DoneeDbHelper;
 import me.avelar.donee.dao.SessionDAO;
 import me.avelar.donee.model.Session;
 import me.avelar.donee.model.User;
-import me.avelar.donee.util.ConnectivityHelper;
 import me.avelar.donee.util.IntentFactory;
 import me.avelar.donee.view.Updatable;
-import me.avelar.donee.web.DoneeService;
-import me.avelar.donee.web.ServiceFactory;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 public final class SessionManager {
 
@@ -104,32 +95,8 @@ public final class SessionManager {
                && session.getUser().getLastSynced() > 0;
     }
 
-    public static void validateCurrent(final Context context) {
-        if (!ConnectivityHelper.isConnectedToInternet(context)) return;
-
-        Session session = getLastSession(context);
-        if (session == null) return;
-
-        DoneeService service = ServiceFactory.getService(context);
-        service.validateSession(session.getId(), new Callback<Session>() {
-            @Override
-            public void success(Session session, Response response) {
-                if (!session.isValid()) {
-                    new Handler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context, R.string.session_expired, Toast.LENGTH_LONG).show();
-                        }
-                    });
-                    logoutCurrentSession(context);
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                // the app will not log the user out unless it is 100% sure the session is invalid
-            }
-        });
-    }
+    // no need to do anything, but keeping here to keep compatibility with other flavors
+    @SuppressWarnings("UnusedParameters")
+    public static void validateCurrent(final Context context) { }
 
 }

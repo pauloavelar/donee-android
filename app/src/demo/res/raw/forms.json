@@ -1,364 +1,527 @@
 [
   {
-    "id": "51",
-    "category": "Pesquisas",
-    "name": "Satisfação",
-    "description": "teste",
-    "useLocation": true,
+    "id": "1",
+    "category": "Casos de uso reais",
+    "name": "Pesquisa Socio-econômica",
+    "description": "Produzida pela Associação de Comerciantes",
+    "hasIcon": true,
     "fields": [
       {
-        "id": "465",
-        "type": "NUMBER",
-        "name": "Id",
-        "label": "Id",
-        "hint": "Id",
-        "options": [],
-        "starting": [],
-        "multiline": false,
-        "height": 48,
-        "rule": {
-          "regexp": "",
-          "required": false,
-          "minValue": null,
-          "maxValue": null,
-          "message": ""
-        }
-      },
-      {
-        "id": "466",
-        "type": "SELECT",
-        "name": "Nota",
-        "label": "Nota",
-        "hint": "Nota",
-        "options": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5"
-        ],
-        "starting": [],
-        "multiline": false,
-        "height": 48,
-        "rule": {
-          "regexp": null,
-          "required": null,
-          "minValue": null,
-          "maxValue": null,
-          "message": null
-        }
-      }
-    ]
-  },
-  {
-    "id": "54",
-    "category": "Pesquisas",
-    "name": "Você está satisfeito?",
-    "description": "Você está satisfeito com o serviço",
-    "useLocation": true,
-    "fields": [
-      {
-        "id": "473",
-        "type": "NUMBER",
-        "name": "Id",
-        "label": "Id",
-        "hint": "Id",
-        "options": [],
-        "starting": [],
-        "multiline": false,
-        "height": 48,
-        "rule": {
-          "regexp": "",
-          "required": false,
-          "minValue": null,
-          "maxValue": null,
-          "message": ""
-        }
-      },
-      {
-        "id": "474",
-        "type": "SELECT",
-        "name": "Nota",
-        "label": "Nota",
-        "hint": "Nota",
-        "options": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5"
-        ],
-        "starting": [],
-        "multiline": false,
-        "height": 48,
-        "rule": {
-          "regexp": null,
-          "required": null,
-          "minValue": null,
-          "maxValue": null,
-          "message": null
-        }
-      }
-    ]
-  },
-  {
-    "id": "56",
-    "category": "Pesquisas",
-    "name": "Família e animais",
-    "description": "",
-    "useLocation": true,
-    "fields": [
-      {
-        "id": "481",
+        "id": "1",
         "type": "TEXT",
-        "name": "nome",
-        "label": "Nome",
-        "hint": "Digite o nome do entrevistado",
-        "options": [],
-        "starting": [],
-        "multiline": false,
-        "height": 48,
+        "label": "Nome completo",
         "rule": {
-          "regexp": "^[a-zA-Z ]+$",
+          "regexp": ".+ .+",
           "required": true,
-          "minValue": null,
-          "maxValue": null,
-          "message": "São permitidas apenas letras e espaço"
+          "message": "Favor informar nome e sobrenome"
         }
       },
       {
-        "id": "483",
+        "id": "2",
         "type": "RADIO",
-        "name": "faixa etária",
-        "label": "Faixa etária",
-        "hint": "",
+        "label": "Sexo",
         "options": [
-          "12 anos ou menos",
-          "de 13 a 17 anos",
-          "de 18 a 25 anos",
-          "de 26 a 35 anos",
-          "de 36 a 45 anos",
-          "de 46 a 55 anos",
-          "56 anos ou mais"
+          "Masculino",
+          "Feminino"
         ],
-        "starting": [],
-        "multiline": false,
-        "height": 198,
         "rule": {
-          "regexp": "^[a-zA-Z ]+$",
           "required": true,
-          "minValue": null,
-          "maxValue": null,
-          "message": "São permitidas apenas letras e espaço"
+          "message": "Favor informar o sexo"
         }
       },
       {
-        "id": "482",
-        "type": "CHECK",
-        "name": "família",
-        "label": "Convive na família",
-        "hint": "",
-        "options": [
-          "Mãe",
-          "Pai",
-          "Irmão maior de idade",
-          "Irmã maior de idade",
-          "Irmão ou irmã menor de idade",
-          "Tios e/ou tias",
-          "Primos e/ou primas",
-          "Avôs e/ou avós"
-        ],
-        "starting": [
-          "Mãe",
-          "Pai"
-        ],
-        "multiline": false,
-        "height": 213,
+        "id": "3",
+        "type": "TEXT",
+        "label": "RG"
+      },
+      {
+        "id": "4",
+        "type": "TEXT",
+        "label": "CPF (somente números)",
         "rule": {
-          "regexp": "^[a-zA-Z ]+$",
           "required": true,
-          "minValue": null,
-          "maxValue": null,
-          "message": "São permitidas apenas letras e espaço"
+          "regexp": "(?!(\\d)\\1{10})\\d{11}",
+          "message": "Favor informar o CPF sem pontos e traços"
         }
       },
       {
-        "id": "484",
-        "type": "NUMBER",
-        "name": "quantidade de animais",
-        "label": "Quantidade de animais",
-        "hint": "",
-        "options": [],
-        "starting": [],
-        "multiline": false,
-        "height": 48,
+        "id": "5",
+        "type": "TEXT",
+        "label": "Data de nascimento (DD/MM/AAAA)",
         "rule": {
-          "regexp": null,
-          "required": null,
-          "minValue": null,
-          "maxValue": null,
-          "message": null
-        }
-      }
-    ]
-  },
-  {
-    "id": "41",
-    "category": "Entertainment",
-    "name": "Some queen, some olds...",
-    "description": "",
-    "useLocation": false,
-    "fields": [
-      {
-        "id": "454",
-        "type": "RADIO",
-        "name": "new radio",
-        "label": "1",
-        "hint": "tedds",
-        "options": [
-          "Radio ga ga",
-          "Radio goo goo",
-          "Radio blah blah",
-          "Radio what's new",
-          "Radio someone still loves you"
-        ],
-        "starting": [],
-        "multiline": false,
-        "height": 153,
-        "rule": {
-          "regexp": null,
-          "required": null,
-          "minValue": null,
-          "maxValue": null,
-          "message": null
+          "required": true,
+          "regexp": "(0[1-9]|1[0-9]|2[0-9]|3[0-1])/(0[1-9]|1[0-2])/(19[0-9][0-9]|20[0-9][0-9])",
+          "message": "Favor informar data de nascimento no formato indicado"
         }
       },
       {
-        "id": "451",
-        "type": "CHECK",
-        "name": "checkbox",
-        "label": "2",
-        "hint": "hint",
-        "options": [
-          "opt a",
-          "opt b",
-          "opt c",
-          "opd d"
-        ],
-        "starting": [],
-        "multiline": false,
-        "height": 138,
+        "id": "6",
+        "type": "TEXT",
+        "label": "Município de residência",
         "rule": {
-          "regexp": null,
-          "required": null,
-          "minValue": null,
-          "maxValue": null,
-          "message": null
+          "required": true,
+          "message": "Favor informar o município de residência"
         }
       },
       {
-        "id": "452",
+        "id": "7",
         "type": "SELECT",
-        "name": "field select",
-        "label": "3",
-        "hint": "hint",
+        "label": "Estado de residência",
         "options": [
-          "live or let die",
-          "leave or let die",
-          "live or let dice",
-          "leave and let mice"
+          "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal",
+          "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul",
+          "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro",
+          "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina",
+          "São Paulo", "Sergipe", "Tocantins"
         ],
-        "starting": [],
-        "multiline": false,
-        "height": 48,
+        "starting": [ "São Paulo" ],
         "rule": {
-          "regexp": null,
-          "required": null,
-          "minValue": null,
-          "maxValue": null,
-          "message": null
+          "required": true,
+          "message": "Favor informar o estado de residência"
         }
       },
       {
-        "id": "453",
-        "type": "IMAGE",
-        "name": "Image field",
-        "label": "4",
-        "hint": "hint",
-        "options": [],
-        "starting": [],
-        "multiline": false,
-        "height": 138,
+        "id": "8",
+        "type": "RADIO",
+        "label": "Estado Civil",
+        "options": [
+          "Solteiro(a)", "Casado(a)", "Separado(a)", "Divorciado(a)", "Viúvo(a)", "União Estável"
+        ],
         "rule": {
-          "regexp": null,
-          "required": null,
-          "minValue": null,
-          "maxValue": null,
-          "message": null
+          "required": true,
+          "message": "Favor informar o Estado Civil"
         }
       },
       {
-        "id": "455",
+        "id": "9",
+        "type": "NUMBER",
+        "label": "Quantidade de filhos",
+        "starting": [ "0" ],
+        "rule": {
+          "required": true,
+          "minValue": 0,
+          "message": "Favor informar a quantidade correta de filhos"
+        }
+      },
+      {
+        "id": "10",
+        "type": "RADIO",
+        "label": "Escolaridade",
+        "hint": "Escolaridades disponíveis",
+        "options": [
+          "Ensino Fundamental incompleto", "Ensino Fundamental completo",
+          "Ensino Médio incompleto", "Ensino Médio completo",
+          "Ensino Superior incompleto", "Ensino Superior completo",
+          "Pós-graduação"
+        ],
+        "rule": {
+          "required": true,
+          "message": "Favor selecionar a escolaridade"
+        }
+      },
+      {
+        "id": "11",
+        "type": "CHECK",
+        "label": "Bens que possui em sua residência",
+        "options": [
+          "TV Plasma/LCD/LED", "Refrigerador", "Microondas", "Automóvel próprio", "Fogão a gás",
+          "Cooktop ou fogão elétrico", "Videogame", "Computador ou notebook", "Ar condicionado"
+        ]
+      },
+      {
+        "id": "12",
+        "type": "CHECK",
+        "label": "Serviços que assina ou contrata",
+        "options": [
+          "TV a Cabo", "Internet Banda Larga", "Plano pós-pago de celular", "Plano de saúde",
+          "Seguro de automóvel", "Serviço de streaming de música", "Serviço de streaming de vídeo",
+          "Academia de musculação", "Assinatura de revistas ou jornais"
+        ]
+      },
+      {
+        "id": "13",
+        "type": "CHECK",
+        "label": "Três fatores mais decisivos em suas compras",
+        "options": [
+          "Preço", "Qualidade", "Garantia e pós-venda", "Atendimento durante a compra",
+          "Loja vendedora", "Necessidade", "Status ou marca", "Potencial de revenda"
+        ],
+        "rule": {
+          "required": true,
+          "minValue": 3,
+          "maxValue": 3,
+          "message": "Favor selecionar três itens da lista"
+        }
+      },
+      {
+        "id": "14",
         "type": "TEXT",
-        "name": "text field 1",
-        "label": "6",
-        "hint": "hint",
-        "options": [],
-        "starting": [],
-        "multiline": false,
-        "height": 48,
-        "rule": {
-          "regexp": null,
-          "required": null,
-          "minValue": null,
-          "maxValue": null,
-          "message": null
-        }
-      },
-      {
-        "id": "456",
-        "type": "TEXT",
-        "name": "text field multiline",
-        "label": "7",
-        "hint": "hint",
-        "options": [],
-        "starting": [],
+        "label": "Observações",
         "multiline": true,
-        "height": 63,
+        "height": 100
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "category": "Casos de uso reais",
+    "name": "Gestão Integrada de Pragas de Milho",
+    "description": "Registro de resistência de pragas",
+    "useLocation": true,
+    "hasIcon": true,
+    "fields": [
+      {
+        "id": "15",
+        "type": "SELECT",
+        "label": "Híbrido",
+        "options": [
+          "Agroeste", "Bayer", "Dekalb", "Pioneer", "Semeali", "Syngenta", "Outros"
+        ],
         "rule": {
-          "regexp": null,
-          "required": null,
-          "minValue": null,
-          "maxValue": null,
-          "message": null
+          "required": true,
+          "message": "Favor selecionar a marca do híbrido observado"
+        }
+      },
+      {
+        "id": "16",
+        "type": "SELECT",
+        "label": "Estádio da cultura",
+        "options": [
+          "VE", "V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8", "V9", "V10",
+          "R1", "R2", "R3", "R4", "R5", "R6"
+        ],
+        "rule": {
+          "required": true,
+          "message": "Favor selecionar o estádio da cultura"
+        }
+      },
+      {
+        "id": "17",
+        "type": "SELECT",
+        "label": "Praga",
+        "options": [
+          "Acromyrmex spp.", "Agrotis ipsilon", "Anurogryllus muticus",
+          "Astylus variegatus", "Atarsocoris brachiariae", "Atta sexdens rubropilosa",
+          "Conoderus scalaris", "Cornitermes snyderi", "Dalbulus maidis", "Deois flavopicta",
+          "Diabrotica speciosa", "Diatraea saccharalis", "Dichelops furcatus",
+          "Dichelops melacanthus", "Diloboderus abderus", "Elasmopalpus lignosellus",
+          "Euxesta spp.", "Frankliniella williamsi", "Helicoverpa zea", "Leptoglossus zonatus",
+          "Mahanarva fimbriolata", "Mocis latipes", "Phyllophaga cuyabana",
+          "Phyllophaga triticophaga", "Procornitermes striatus", "Procornitermes triacifer",
+          "Rhammatocerus schistocercoides", "Rhopalosiphum maidis", "Scaptocoris castanea",
+          "Spodoptera frugiperda", "Syntermes molestus"
+        ],
+        "rule": {
+          "required": true,
+          "message": "Favor selecionar a praga observada"
+        }
+      },
+      {
+        "id": "18",
+        "type": "RADIO",
+        "label": "Grau de infestação",
+        "options": [ "Leve", "Médio", "Grave" ],
+        "rule": {
+          "required": true,
+          "message": "Favor selecionar o grau de infestação"
+        }
+      },
+      {
+        "id": "19",
+        "type": "NUMBER",
+        "label": "Dano (Escala Davis)",
+        "hint": "0 a 9",
+        "starting": [ "0" ],
+        "rule": {
+          "required": true,
+          "minValue": 0,
+          "maxValue": 9,
+          "message": "Favor informar um dano na Escala Davis (0 a 9)"
+        }
+      },
+      {
+        "id": "20",
+        "type": "IMAGE",
+        "label": "Foto da planta"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "category": "Demonstração de tipos de campo",
+    "name": "1. Campo de texto",
+    "hasIcon": true,
+    "fields": [
+      {
+        "id": "21",
+        "type": "TEXT",
+        "label": "Campo de texto não obrigatório",
+        "hint": "Qualquer texto em uma linha"
+      },
+      {
+        "id": "22",
+        "type": "TEXT",
+        "label": "Campo de texto obrigatório",
+        "hint": "Qualquer texto em uma linha",
+        "rule": {
+          "required": true,
+          "message": "Este campo é obrigatório"
+        }
+      },
+      {
+        "id": "23",
+        "type": "TEXT",
+        "label": "Campo de texto com 5 a 10 caracteres)",
+        "hint": "Qualquer texto com 5 a 10 caracteres",
+        "rule": {
+          "required": true,
+          "minValue": 5,
+          "maxValue": 10,
+          "message": "Favor inserir um texto com 5 a 10 caracteres"
+        }
+      },
+      {
+        "id": "24",
+        "type": "TEXT",
+        "label": "Campo de texto com valor inicial",
+        "hint": "Este campo já vem preenchido",
+        "starting": [ "Valor inicial já preenchido" ]
+      },
+      {
+        "id": "25",
+        "type": "TEXT",
+        "label": "Campo de texto com validação avançada",
+        "hint": "Expressão regular: ^>>.+[0-9]+>>$ (ex: >>teste123>>)",
+        "rule": {
+          "required": true,
+          "regexp": "^>>.+[0-9]+>>$",
+          "message": "O valor não é válido para a expressão regular ^>>.+[0-9]+>>$"
+        }
+      },
+      {
+        "id": "26",
+        "type": "TEXT",
+        "label": "Campo multilinha com altura definida",
+        "multiline": true,
+        "height": 120
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "category": "Demonstração de tipos de campo",
+    "name": "2. Campo numérico",
+    "hasIcon": true,
+    "fields": [
+      {
+        "id": "27",
+        "type": "NUMBER",
+        "label": "Campo numérico comum",
+        "hint": "Qualquer número (ou nenhum)"
+      },
+      {
+        "id": "28",
+        "type": "NUMBER",
+        "label": "Campo numérico obrigatório",
+        "hint": "Qualquer número",
+        "rule": {
+          "required": true,
+          "message": "Este campo é obrigatório"
+        }
+      },
+      {
+        "id": "29",
+        "type": "NUMBER",
+        "label": "Campo numérico já preenchido",
+        "hint": "O valor inicial é 2017",
+        "starting": [ "2017" ]
+      },
+      {
+        "id": "29",
+        "type": "NUMBER",
+        "label": "Campo numérico com intervalo de valor",
+        "hint": "Um valor entre -7,5 e 7,5",
+        "rule": {
+          "required": true,
+          "minValue": -7.5,
+          "maxValue":  7.5,
+          "message": "Favor inserir um valor entre -7,5 e 7,5"
         }
       }
     ]
   },
   {
-    "id": "44",
-    "category": "Test",
-    "name": "Collect names",
-    "description": "",
+    "id": "5",
+    "category": "Demonstração de tipos de campo",
+    "name": "3. Menu dropdown",
+    "hasIcon": true,
+    "fields": [
+      {
+        "id": "30",
+        "type": "SELECT",
+        "label": "Menu comum não obrigatório",
+        "options": [ "Valor 1", "Valor 2", "Valor 3" ]
+      },
+      {
+        "id": "31",
+        "type": "SELECT",
+        "label": "Menu comum obrigatório",
+        "options": [ "Valor 1", "Valor 2", "Valor 3" ],
+        "rule": {
+          "required": true,
+          "message": "Por favor selecione uma opção"
+        }
+      },
+      {
+        "id": "32",
+        "type": "SELECT",
+        "label": "Menu com texto customizado de dica",
+        "hint": "Três valores possíveis",
+        "options": [ "Valor 1", "Valor 2", "Valor 3" ]
+      },
+      {
+        "id": "33",
+        "type": "SELECT",
+        "label": "Menu com valor inicial",
+        "options": [ "Valor 1", "Valor 2", "Valor 3" ],
+        "starting": [ "Valor 2" ]
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "category": "Demonstração de tipos de campo",
+    "name": "4. Campo de seleção única",
+    "hasIcon": true,
+    "fields": [
+      {
+        "id": "34",
+        "type": "RADIO",
+        "label": "Campo de seleção única comum não obrigatório",
+        "options": [ "Valor 1", "Valor 2", "Valor 3" ]
+      },
+      {
+        "id": "35",
+        "type": "RADIO",
+        "label": "Menu comum obrigatório",
+        "options": [ "Valor 1", "Valor 2", "Valor 3" ],
+        "rule": {
+          "required": true,
+          "message": "Por favor selecione uma opção"
+        }
+      },
+      {
+        "id": "36",
+        "type": "RADIO",
+        "label": "Menu com valor inicial",
+        "options": [ "Valor 1", "Valor 2", "Valor 3" ],
+        "starting": [ "Valor 2" ]
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "category": "Demonstração de tipos de campo",
+    "name": "5. Campo de múltipla escolha",
+    "hasIcon": true,
+    "fields": [
+      {
+        "id": "37",
+        "type": "CHECK",
+        "label": "Checkbox comum não obrigatório",
+        "options": [ "Valor 1", "Valor 2", "Valor 3" ]
+      },
+      {
+        "id": "38",
+        "type": "CHECK",
+        "label": "Menu comum obrigatório",
+        "options": [ "Valor 1", "Valor 2", "Valor 3" ],
+        "rule": {
+          "required": true,
+          "message": "Por favor selecione ao menos uma opção"
+        }
+      },
+      {
+        "id": "39",
+        "type": "CHECK",
+        "label": "Campo de múltipla escolha pré-preenchido",
+        "options": [ "Valor 1", "Valor 2", "Valor 3", "Valor 4" ],
+        "starting": [ "Valor 2", "Valor 4" ]
+      },
+      {
+        "id": "40",
+        "type": "CHECK",
+        "label": "Campo de múltipla escolha com limites",
+        "options": [
+          "Valor 1", "Valor 2", "Valor 3", "Valor 4", "Valor 5", "Valor 6"
+        ],
+        "rule": {
+          "required": true,
+          "minValue": 2,
+          "maxValue": 5,
+          "message": "Selecione de 2 a 5 itens"
+        }
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "category": "Demonstração de tipos de campo",
+    "name": "6. Campo de imagem",
+    "hasIcon": true,
+    "fields": [
+      {
+        "id": "41",
+        "type": "IMAGE",
+        "label": "Campo de imagem não obrigatório"
+      },
+      {
+        "id": "42",
+        "type": "IMAGE",
+        "label": "Campo de imagem obrigatório",
+        "rule": {
+          "required": true,
+          "message": "Favor tirar uma foto ou selecionar uma imagem da galeria"
+        }
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "category": "Geolocalização",
+    "name": "Formulário sem geolocalização",
+    "description": "Este formulário salva apenas os campos",
+    "fields": [
+      {
+        "id": "43",
+        "type": "TEXT",
+        "label": "Texto qualquer"
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "category": "Geolocalização",
+    "name": "Formulário com geolocalização",
+    "description": "Salva a latitude e longitude de submissão",
     "useLocation": true,
     "fields": [
       {
-        "id": "461",
+        "id": "44",
         "type": "TEXT",
-        "name": "name",
-        "label": "Name",
-        "hint": "Type any name",
-        "options": [],
-        "starting": [],
-        "multiline": false,
-        "height": 48,
-        "rule": {
-          "regexp": "^[Aa].+r$",
-          "required": true,
-          "minValue": null,
-          "maxValue": null,
-          "message": "Você é obrigado a digitar um nome que começa com A/a e termine com r"
-        }
+        "label": "Texto qualquer"
+      }
+    ]
+  },
+  {
+    "id": "11",
+    "name": "Formulário sem categoria",
+    "description": "Exemplo de formulário não categorizado",
+    "fields": [
+      {
+        "id": "45",
+        "type": "TEXT",
+        "label": "Texto qualquer"
       }
     ]
   }

@@ -14,9 +14,6 @@ import me.avelar.donee.R;
 import me.avelar.donee.model.Form;
 import me.avelar.donee.model.Session;
 
-/**
- *
- */
 public final class DummyJsonReader {
 
     private static Gson getGsonInstance() {

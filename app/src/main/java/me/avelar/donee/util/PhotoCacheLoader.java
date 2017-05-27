@@ -1,60 +1,62 @@
 package me.avelar.donee.util;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+import me.avelar.donee.R;
 
-import me.avelar.donee.dao.UserDAO;
-import me.avelar.donee.model.User;
+@SuppressWarnings("WeakerAccess")
+public final class PhotoCacheLoader {
 
-public class UserPhotoSaver implements Target {
+    private static final int PHOTO_SIZE = 256;
 
-    public static final int    USER_PHOTO_SIZE = 150;
-    public static final String PHOTO_EXTENSION = ".jpg";
+    public static void loadFormIcon(final Context context, String iconPath, final ImageView iv) {
+        final Uri photoUri = Uri.parse(iconPath);
 
-    private Context   context;
-    private User      user;
-    private ImageView imageView;
+        Picasso.with(context)
+            .load(photoUri)
+            .networkPolicy(NetworkPolicy.OFFLINE)
+            .into(iv, new Callback() {
+                @Override public void onSuccess() { }
 
-    public UserPhotoSaver(Context context, User user, ImageView imageView) {
-        this.context   = context;
-        this.user      = user;
-        this.imageView = imageView;
+                @Override public void onError() {
+                    // Try again online if cache failed
+                    Picasso.with(context)
+                        .load(photoUri)
+                        .resize(PHOTO_SIZE, PHOTO_SIZE).centerCrop()
+                        .placeholder(R.drawable.form_placeholder)
+                        .error(R.drawable.form_placeholder)
+                        .into(iv);
+                }
+            });
     }
 
-    @Override
-    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-        RandomString random = new RandomString(6);
-        String file = random.nextString() + user.getId() + PHOTO_EXTENSION;
-        try {
-            FileOutputStream ostream = context.openFileOutput(file, Context.MODE_PRIVATE);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 75, ostream);
-            ostream.close();
-            UserDAO.storePhotoName(context, user, file);
-            loadPhotoIntoView(context, file, imageView);
-        } catch (IOException ioe) {
-            context.deleteFile(file);
-        }
-    }
+    public static void loadUserPhoto(final Context context, String photoPath, final ImageView iv) {
+        final Uri photoUri = Uri.parse(photoPath);
 
-    @Override
-    public void onBitmapFailed(Drawable errorDrawable) {}
+        Picasso.with(context)
+            .load(photoUri)
+            .transform(new CircleTransform())
+            .networkPolicy(NetworkPolicy.OFFLINE)
+            .into(iv, new Callback() {
+                @Override public void onSuccess() { }
 
-    @Override
-    public void onPrepareLoad(Drawable placeHolderDrawable) {}
-
-    public void loadPhotoIntoView(Context context, String photoName, ImageView imageView) {
-        String path = FileManager.findFilePath(context, photoName);
-        if (path != null && imageView != null) {
-            Picasso.with(context).load(path).into(imageView);
-        }
+                @Override public void onError() {
+                    // Try again online if cache failed
+                    Picasso.with(context)
+                        .load(photoUri)
+                        .resize(PHOTO_SIZE, PHOTO_SIZE).centerCrop()
+                        .transform(new CircleTransform())
+                        .placeholder(R.drawable.user_placeholder)
+                        .error(R.drawable.user_placeholder)
+                        .into(iv);
+                }
+            });
     }
 
 }

@@ -25,6 +25,7 @@ public class ServiceFactory {
     private static RestAdapter  globalAdapter;
     private static DoneeService service;
 
+    @SuppressWarnings("unused")
     public static DoneeService getService(Context context) {
         if (service == null) {
             service = getAdapter(context).create(DoneeService.class);

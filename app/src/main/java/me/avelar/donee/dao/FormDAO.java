@@ -14,7 +14,7 @@ import me.avelar.donee.model.User;
 public class FormDAO {
 
     public static void insert(Context context, ArrayList<Form> forms, User user) {
-        SQLiteDatabase db = DoneeDbHelper.getInstance(context).getReadableDatabase();
+        SQLiteDatabase db = DoneeDbHelper.getInstance(context).getWritableDatabase();
         db.beginTransaction();
         try {
             for (Form form : forms) {

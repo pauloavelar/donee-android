@@ -2,6 +2,7 @@ package me.avelar.donee.util;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import me.avelar.donee.R;
-import me.avelar.donee.dao.UserDAO;
 import me.avelar.donee.model.User;
+import me.avelar.donee.web.UrlRepository;
 
 public class UserAdapter extends ArrayAdapter<User> {
 
     private static class ViewHolder {
-        public ImageView userPhoto;
-        public TextView  userName;
-        public TextView  userAccount;
+        ImageView userPhoto;
+        TextView userName;
+        TextView userAccount;
 
     }
 
@@ -26,8 +27,9 @@ public class UserAdapter extends ArrayAdapter<User> {
         super(context, resource);
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, final View convertView, final ViewGroup parent) {
+    public View getView(final int pos, final View convertView, @NonNull final ViewGroup parent) {
         View rowView = convertView;
         if (rowView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -43,11 +45,13 @@ public class UserAdapter extends ArrayAdapter<User> {
         }
         ViewHolder holder = (ViewHolder) rowView.getTag();
 
-        User item = getItem(position);
-        UserDAO.loadPhoto(getContext(), item, holder.userPhoto);
-        holder.userName.setText(item.getName());
-        holder.userAccount.setText(item.getAccount());
-
+        User item = getItem(pos);
+        if (item != null) {
+            String userPhotoUrl = UrlRepository.getUserPhotoUrl(item.getId());
+            PhotoCacheLoader.loadUserPhoto(getContext(), userPhotoUrl, holder.userPhoto);
+            holder.userName.setText(item.getName());
+            holder.userAccount.setText(item.getAccount());
+        }
         return rowView;
     }
 

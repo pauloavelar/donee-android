@@ -68,7 +68,7 @@ public class Form implements Parcelable {
     }
 
     public String getIconUrl() {
-        return (hasIcon() ? UrlRepository.getFormIcon(id) : null);
+        return (hasIcon() ? UrlRepository.getFormIconUrl(id) : null);
     }
 
     public boolean usesLocation() {
@@ -79,7 +79,7 @@ public class Form implements Parcelable {
         this.useLocation = useLocation;
     }
 
-    public boolean hasIcon() {
+    private boolean hasIcon() {
         return hasIcon;
     }
 

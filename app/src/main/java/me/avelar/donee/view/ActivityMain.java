@@ -43,14 +43,15 @@ import me.avelar.donee.R;
 import me.avelar.donee.controller.SessionManager;
 import me.avelar.donee.controller.WelcomeLogic;
 import me.avelar.donee.dao.UserDAO;
-import me.avelar.donee.model.Session;
 import me.avelar.donee.model.User;
 import me.avelar.donee.util.IntentFactory;
 import me.avelar.donee.util.NavDrawerAdapter;
 import me.avelar.donee.util.NavDrawerHelper;
 import me.avelar.donee.util.NotificationFactory;
+import me.avelar.donee.util.PhotoCacheLoader;
 import me.avelar.donee.util.UserAdapter;
 import me.avelar.donee.web.SenderIntentService;
+import me.avelar.donee.web.UrlRepository;
 
 public class ActivityMain extends AppCompatActivity implements View.OnClickListener,
                         AdapterView.OnItemClickListener, DialogInterface.OnClickListener {
@@ -120,7 +121,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         // setting up the Navigation Drawer layout and behavior
         mDrawerToggle = new DrawerToggle(this, mDrawerLayout,
                                          R.string.drawer_open, R.string.drawer_close);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
 
         // creating current user layout card
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -229,10 +230,10 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     }
 
     private void loadCurrentUser() {
-        Session session = SessionManager.getLastSession(this);
-        mTvName.setText(session.getUser().getName());
-        mTvAccount.setText(session.getUser().getAccount());
-        UserDAO.loadPhoto(this, session.getUser(), mIvPhoto);
+        User user = SessionManager.getLastSession(this).getUser();
+        mTvName.setText(user.getName());
+        mTvAccount.setText(user.getAccount());
+        PhotoCacheLoader.loadUserPhoto(this, UrlRepository.getUserPhotoUrl(user.getId()), mIvPhoto);
         mUserAdapter.clear();
         mUserAdapter.addAll(UserDAO.getOthers(this));
         mUserAdapter.notifyDataSetChanged();
@@ -399,12 +400,12 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         if (mFragment == null) return;
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.main_container, mFragment);
-        ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
         ft.commit();
     }
 
-    public class DrawerToggle extends ActionBarDrawerToggle {
-        public DrawerToggle(Activity activity, DrawerLayout drawerLayout,
+    private class DrawerToggle extends ActionBarDrawerToggle {
+        DrawerToggle(Activity activity, DrawerLayout drawerLayout,
                             int openDrawerRes, int closeDrawerRes) {
             super(activity, drawerLayout, openDrawerRes, closeDrawerRes);
         }
