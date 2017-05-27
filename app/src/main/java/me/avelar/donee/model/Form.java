@@ -26,13 +26,14 @@ public class Form implements Parcelable {
         this.category    = category;
     }
 
-    public Form(String id, String name, String category, String description, boolean useLocation) {
+    public Form(String id, String name, String category, String description,
+                boolean useLocation, boolean hasIcon) {
         this.id          = id;
         this.name        = name;
         this.category    = category;
         this.description = description;
         this.useLocation = useLocation;
-        this.hasIcon     = false;
+        this.hasIcon     = hasIcon;
     }
 
     public String getId() {
@@ -79,7 +80,7 @@ public class Form implements Parcelable {
         this.useLocation = useLocation;
     }
 
-    private boolean hasIcon() {
+    public boolean hasIcon() {
         return hasIcon;
     }
 

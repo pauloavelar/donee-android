@@ -39,6 +39,7 @@ public class FormDAO {
         formValues.put(DoneeDbHelper.C_FORM_CATEGORY,     form.getCategory());
         formValues.put(DoneeDbHelper.C_FORM_DESCRIPTION,  form.getDescription());
         formValues.put(DoneeDbHelper.C_FORM_USE_LOCATION, form.usesLocation());
+        formValues.put(DoneeDbHelper.C_FORM_HAS_ICON,     form.hasIcon());
 
         ContentValues permission = new ContentValues();
         permission.put(DoneeDbHelper.C_UF_FORM, form.getId());
@@ -64,6 +65,7 @@ public class FormDAO {
         int category    = cursor.getColumnIndex(DoneeDbHelper.C_FORM_CATEGORY);
         int description = cursor.getColumnIndex(DoneeDbHelper.C_FORM_DESCRIPTION);
         int useLocation = cursor.getColumnIndex(DoneeDbHelper.C_FORM_USE_LOCATION);
+        int hasIcon     = cursor.getColumnIndex(DoneeDbHelper.C_FORM_HAS_ICON);
 
         while (cursor.moveToNext()) {
             Form form = new Form(
@@ -71,7 +73,8 @@ public class FormDAO {
                 cursor.getString(name),
                 cursor.getString(category),
                 cursor.getString(description),
-                cursor.getInt(useLocation) != 0
+                cursor.getInt(useLocation) != 0,
+                cursor.getInt(hasIcon) != 0
             );
             form.setFields(FieldDAO.find(context, form));
             forms.add(form);
@@ -81,6 +84,7 @@ public class FormDAO {
         return forms;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static Form find(SQLiteDatabase db, String formId) {
         final String  where = DoneeDbHelper.C_FORM_ID + " = ?";
         final String[] args = { formId };
@@ -92,6 +96,7 @@ public class FormDAO {
         int category    = cursor.getColumnIndex(DoneeDbHelper.C_FORM_CATEGORY);
         int description = cursor.getColumnIndex(DoneeDbHelper.C_FORM_DESCRIPTION);
         int useLocation = cursor.getColumnIndex(DoneeDbHelper.C_FORM_USE_LOCATION);
+        int hasIcon     = cursor.getColumnIndex(DoneeDbHelper.C_FORM_HAS_ICON);
 
         if (cursor.getCount() == 0) return null;
 
@@ -101,7 +106,8 @@ public class FormDAO {
                 cursor.getString(name),
                 cursor.getString(category),
                 cursor.getString(description),
-                cursor.getInt(useLocation) != 0
+                cursor.getInt(useLocation) != 0,
+                cursor.getInt(hasIcon) != 0
         );
         form.setFields(FieldDAO.find(db, form));
         cursor.close();
