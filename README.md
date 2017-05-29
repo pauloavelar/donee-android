@@ -29,8 +29,8 @@ Meet donee, a web solution developed to streamline data collection using e-forms
 **- Range:** applicable to some fields, choose minimum and maximum values.  
 **- Regular Expressions:** text fields can be validated against a regular expression.
 
-![Login Activity](https://github.com/pauloavelar/donee-android/raw/master/readme/login_screenshot.jpg)
-![Main Activity - Forms](https://github.com/pauloavelar/donee-android/raw/master/readme/forms_screenshot.jpg)
-![Collector Activity](https://github.com/pauloavelar/donee-android/raw/master/readme/collector_screenshot.jpg)
+![Login Activity](https://github.com/pauloavelar/donee-android/raw/master/readme/login_screenshot_275.jpg)
+![Main Activity - Forms](https://github.com/pauloavelar/donee-android/raw/master/readme/forms_screenshot_275.jpg)
+![Collector Activity](https://github.com/pauloavelar/donee-android/raw/master/readme/collector_screenshot_275.jpg)
 ---
 **Play Store link for the DEMO version:** https://play.google.com/store/apps/details?id=me.avelar.donee.demo
