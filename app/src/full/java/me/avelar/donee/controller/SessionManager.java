@@ -14,7 +14,7 @@ import java.util.Date;
 
 import me.avelar.donee.R;
 import me.avelar.donee.dao.DoneeDbHelper;
-import me.avelar.donee.dao.SessionDAO;
+import me.avelar.donee.dao.SessionDao;
 import me.avelar.donee.model.Session;
 import me.avelar.donee.model.User;
 import me.avelar.donee.util.ConnectivityHelper;
@@ -26,12 +26,13 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+@SuppressWarnings("WeakerAccess")
 public final class SessionManager {
 
-    public static final String PREF_LAST_SESSION = "lastSession";
+    private static final String PREF_LAST_SESSION = "lastSession";
 
     public static void storeSession(Context context, Session session) {
-        SessionDAO.insert(context, session);
+        SessionDao.insert(context, session);
         setLastSession(context, session, false);
     }
 
@@ -46,7 +47,7 @@ public final class SessionManager {
         editor.apply();
         if (updateLastUsed) {
             session.setLastUsed(new Date());
-            SessionDAO.update(context, session);
+            SessionDao.update(context, session);
         }
     }
 
@@ -57,11 +58,11 @@ public final class SessionManager {
     }
 
     public static Session getSession(Context context, String sessionId) {
-        return SessionDAO.find(context, DoneeDbHelper.C_SESSION_ID, sessionId);
+        return SessionDao.find(context, DoneeDbHelper.C_SESSION_ID, sessionId);
     }
 
     public static boolean switchTo(@NonNull Context context, User user) {
-        Session session = SessionDAO.find(context, DoneeDbHelper.C_SESSION_USER, user.getId());
+        Session session = SessionDao.find(context, DoneeDbHelper.C_SESSION_USER, user.getId());
         if (session != null) {
             setLastSession(context, session);
             return true;
@@ -74,8 +75,8 @@ public final class SessionManager {
 
     public static void logoutCurrentSession(@NonNull Context context, boolean forever) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        SessionDAO.delete(context, sp.getString(PREF_LAST_SESSION, null));
-        Session session = SessionDAO.findLastUsed(context);
+        SessionDao.delete(context, sp.getString(PREF_LAST_SESSION, null));
+        Session session = SessionDao.findLastUsed(context);
 
         Intent nextAction;
         if (session != null) {

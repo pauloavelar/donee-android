@@ -15,7 +15,7 @@ import java.util.List;
 
 import me.avelar.donee.R;
 import me.avelar.donee.controller.SessionManager;
-import me.avelar.donee.dao.CollectionDAO;
+import me.avelar.donee.dao.CollectionDao;
 import me.avelar.donee.model.Collection;
 import me.avelar.donee.model.Session;
 import me.avelar.donee.util.ConnectivityHelper;
@@ -59,7 +59,7 @@ public class SenderIntentService extends IntentService {
         NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         Notification.Builder builder = NotificationFactory.create(context, Type.ONGOING_SYNC);
 
-        List<Collection> collections = CollectionDAO.findOutbox(context, session.getUser());
+        List<Collection> collections = CollectionDao.findOutbox(context, session.getUser());
         List<Collection> errored     = new ArrayList<>();
 
         // disabling the submit menu option
@@ -71,11 +71,11 @@ public class SenderIntentService extends IntentService {
         int completed = 0, total = collections.size();
         for (int i = 0; i < total; i++) {
             // getting reference to the current item
-            Collection collection = CollectionDAO.findComplete(context, collections.get(i));
+            Collection collection = CollectionDao.findComplete(context, collections.get(i));
 
             // updating the notification
             builder.setProgress(total, completed, false);
-            builder.setContentInfo(completed + " " + of + " " + total);
+            builder.setSubText(completed + " " + of + " " + total);
             nm.notify(NotificationFactory.ONGOING_SYNC_ID, builder.build());
 
             // checking if lost internet or if failed more than 3 forms
@@ -85,9 +85,9 @@ public class SenderIntentService extends IntentService {
             boolean success = trySending(session, collection);
 
             if (success) {
-                // update progress, delete local version and notify the UI
+                // update progress, deleteAll local version and notify the UI
                 completed++;
-                CollectionDAO.delete(context, collection);
+                CollectionDao.delete(context, collection);
                 sendBroadcast(context, ITEM_SENT, collection.getLocalId());
             } else {
                 // add the item to the error array (for future retries)
@@ -99,10 +99,10 @@ public class SenderIntentService extends IntentService {
         for (Collection retry : errored) {
             if (!trySending(session, retry)) break;
             completed++;
-            CollectionDAO.delete(context, retry);
+            CollectionDao.delete(context, retry);
             sendBroadcast(context, ITEM_SENT, retry.getLocalId());
             builder.setProgress(total, completed, false);
-            builder.setContentInfo(completed + " " + of + " " + total);
+            builder.setSubText(completed + " " + of + " " + total);
             nm.notify(NotificationFactory.ONGOING_SYNC_ID, builder.build());
         }
 

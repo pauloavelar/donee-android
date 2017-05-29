@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import me.avelar.donee.R;
 import me.avelar.donee.controller.SessionManager;
-import me.avelar.donee.dao.UserDAO;
+import me.avelar.donee.dao.UserDao;
 import me.avelar.donee.model.Session;
 
 public class FragmentSettings extends PreferenceFragment implements
@@ -50,7 +50,7 @@ public class FragmentSettings extends PreferenceFragment implements
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    UserDAO.delete(getActivity(), session.getUser());
+                    UserDao.delete(getActivity(), session.getUser());
                 }
             }).start();
             if (getActivity() instanceof ActivityMain) {

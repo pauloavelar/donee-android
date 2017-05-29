@@ -42,7 +42,7 @@ import java.util.Date;
 import me.avelar.donee.R;
 import me.avelar.donee.controller.SessionManager;
 import me.avelar.donee.controller.WelcomeLogic;
-import me.avelar.donee.dao.UserDAO;
+import me.avelar.donee.dao.UserDao;
 import me.avelar.donee.model.User;
 import me.avelar.donee.util.IntentFactory;
 import me.avelar.donee.util.NavDrawerAdapter;
@@ -235,7 +235,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         mTvAccount.setText(user.getAccount());
         PhotoCacheLoader.loadUserPhoto(this, UrlRepository.getUserPhotoUrl(user.getId()), mIvPhoto);
         mUserAdapter.clear();
-        mUserAdapter.addAll(UserDAO.getOthers(this));
+        mUserAdapter.addAll(UserDao.getOthers(this));
         mUserAdapter.notifyDataSetChanged();
         if (mFragment instanceof Updatable) {
             ((Updatable) mFragment).updateSessionData();

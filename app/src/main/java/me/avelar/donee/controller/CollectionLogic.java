@@ -7,7 +7,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import java.util.ArrayList;
 
 import me.avelar.donee.BuildConfig;
-import me.avelar.donee.dao.CollectionDAO;
+import me.avelar.donee.dao.CollectionDao;
 import me.avelar.donee.model.Collection;
 import me.avelar.donee.model.Session;
 import me.avelar.donee.util.IntentFactory;
@@ -29,7 +29,7 @@ public class CollectionLogic {
             sendBroadcastToActivity(context, RequestStatus.UNKNOWN_ERROR, destination);
         } else {
             if (destination == OUTBOX) collection.setSubmitted(true);
-            if (CollectionDAO.insert(context, collection, session.getUser())) {
+            if (CollectionDao.insert(context, collection, session.getUser())) {
                 sendBroadcastToActivity(context, RequestStatus.SUCCEEDED, destination);
             } else {
                 sendBroadcastToActivity(context, RequestStatus.UNKNOWN_ERROR, destination);
@@ -76,17 +76,17 @@ public class CollectionLogic {
         ArrayList<Collection> collections = null;
         switch (collectionType) {
             case DRAFTS:
-                collections = CollectionDAO.findDrafts(context, session.getUser());
+                collections = CollectionDao.findDrafts(context, session.getUser());
                 break;
             case OUTBOX:
-                collections = CollectionDAO.findOutbox(context, session.getUser());
+                collections = CollectionDao.findOutbox(context, session.getUser());
                 break;
         }
         sendBroadcastToFragment(context, collections);
     }
 
     public static void deleteAll(Context context, int contentType) {
-        CollectionDAO.delete(context, contentType);
+        CollectionDao.deleteAll(context, contentType);
         Intent intent = IntentFactory.create(IntentFactory.Type.COLLECTION_LOADED);
         intent.putExtra(IntentFactory.EXTRA_DETAIL, true);
         intent.putExtra(IntentFactory.EXTRA_DATA,   new ArrayList<Collection>());

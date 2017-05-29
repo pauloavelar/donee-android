@@ -6,60 +6,73 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import me.avelar.donee.controller.SessionManager;
 import me.avelar.donee.model.User;
-import me.avelar.donee.util.PhotoCacheLoader;
-import me.avelar.donee.web.UrlRepository;
 
-public final class UserDAO {
+@SuppressWarnings("WeakerAccess")
+public final class UserDao {
 
     public static void insert(@NonNull SQLiteDatabase db, @NonNull User user) throws SQLException {
-        ContentValues values = new ContentValues();
-        values.put(DoneeDbHelper.C_USER_ID, user.getId());
-        values.put(DoneeDbHelper.C_USER_NAME, user.getName());
-        values.put(DoneeDbHelper.C_USER_EMAIL, user.getEmail());
-        values.put(DoneeDbHelper.C_USER_ACCOUNT, user.getAccount());
-        
-        long result = db.insertWithOnConflict(DoneeDbHelper.T_USER, null,
-                values, SQLiteDatabase.CONFLICT_REPLACE);
-        if (result == DoneeDbHelper.DB_ERROR) throw new SQLException();
+        ContentValues values = createValues(user);
+        if (!isUserStored(db, user)) {
+            db.insertOrThrow(DoneeDbHelper.T_USER, null, values);
+        } else update(db, values);
     }
 
-    @SuppressWarnings("unused")
+    private static boolean isUserStored(@NonNull SQLiteDatabase db, User user) {
+        if (user == null) return false;
+
+        Cursor cursor = db.query(DoneeDbHelper.T_USER, new String[]{ DoneeDbHelper.C_USER_ID },
+                DoneeDbHelper.C_USER_ID + " = ?", new String[]{ user.getId() }, null, null, null);
+
+        boolean result = cursor.getCount() > 0;
+        cursor.close();
+
+        return result;
+    }
+
     public static void update(@NonNull Context context, @NonNull User user) {
         SQLiteDatabase db = DoneeDbHelper.getInstance(context).getWritableDatabase();
+        ContentValues values = createValues(user);
+        update(db, values);
+    }
 
-        ContentValues values = new ContentValues();
-        values.put(DoneeDbHelper.C_USER_ID, user.getId());
-        if (user.getName()    != null) values.put(DoneeDbHelper.C_USER_NAME,    user.getName());
-        if (user.getEmail()   != null) values.put(DoneeDbHelper.C_USER_EMAIL,   user.getEmail());
-        if (user.getAccount() != null) values.put(DoneeDbHelper.C_USER_ACCOUNT, user.getAccount());
-        if (user.getLastSynced()  > 0) values.put(DoneeDbHelper.C_USER_SYNCED,  user.getLastSynced());
-
-        String[] args = { user.getId() };
+    private static void update(@NonNull SQLiteDatabase db, @NonNull ContentValues values) {
+        String[] args = { values.getAsString(DoneeDbHelper.C_USER_ID) };
         db.update(DoneeDbHelper.T_USER, values, DoneeDbHelper.C_USER_ID + " = ?", args);
+    }
+
+    private static ContentValues createValues(@NonNull User user) {
+        ContentValues vals = new ContentValues();
+
+        vals.put(DoneeDbHelper.C_USER_ID, user.getId());
+        if (user.getName()    != null) vals.put(DoneeDbHelper.C_USER_NAME,    user.getName());
+        if (user.getEmail()   != null) vals.put(DoneeDbHelper.C_USER_EMAIL,   user.getEmail());
+        if (user.getAccount() != null) vals.put(DoneeDbHelper.C_USER_ACCOUNT, user.getAccount());
+        if (user.getLastSynced()  > 0) vals.put(DoneeDbHelper.C_USER_SYNCED,  user.getLastSynced());
+
+        return vals;
     }
 
     public static User find(@NonNull Context context, String id) {
         SQLiteDatabase db = DoneeDbHelper.getInstance(context).getReadableDatabase();
         String[] args = { id };
-        Cursor cursor = db.query(DoneeDbHelper.T_USER, null,
-                DoneeDbHelper.C_USER_ID + " = ?", args, null, null, null);
+        Cursor cursor = db.query(DoneeDbHelper.T_USER, null, DoneeDbHelper.C_USER_ID + " = ?",
+                                 args, null, null, null, "1");
 
         if (cursor.getCount() == 0) return null;
         cursor.moveToFirst();
-        String name    = cursor.getString(cursor.getColumnIndex(DoneeDbHelper.C_USER_NAME));
-        String email   = cursor.getString(cursor.getColumnIndex(DoneeDbHelper.C_USER_EMAIL));
-        String account = cursor.getString(cursor.getColumnIndex(DoneeDbHelper.C_USER_ACCOUNT));
-        long   updated = cursor.getLong  (cursor.getColumnIndex(DoneeDbHelper.C_USER_SYNCED));
-        User user = new User(id, name, email, account, updated);
+        User user = new User(
+                id,
+                cursor.getString(cursor.getColumnIndex(DoneeDbHelper.C_USER_NAME)),
+                cursor.getString(cursor.getColumnIndex(DoneeDbHelper.C_USER_EMAIL)),
+                cursor.getString(cursor.getColumnIndex(DoneeDbHelper.C_USER_ACCOUNT)),
+                cursor.getLong  (cursor.getColumnIndex(DoneeDbHelper.C_USER_SYNCED)));
         cursor.close();
 
         return user;
@@ -69,7 +82,8 @@ public final class UserDAO {
         ArrayList<User> users = new ArrayList<>();
         SQLiteDatabase db = DoneeDbHelper.getInstance(context).getReadableDatabase();
         Cursor cursor = db.query(DoneeDbHelper.T_USER, null, null,
-                null, null, null, DoneeDbHelper.C_USER_NAME);
+                                 null, null, null, DoneeDbHelper.C_USER_NAME);
+
         while (cursor.moveToNext()) {
             users.add(new User(
                 cursor.getString(cursor.getColumnIndex(DoneeDbHelper.C_USER_ID)),
@@ -98,7 +112,6 @@ public final class UserDAO {
     public static void delete(Context context, User user) {
         SQLiteDatabase db = DoneeDbHelper.getInstance(context).getWritableDatabase();
         String[] args = {user.getId()};
-
         db.delete(DoneeDbHelper.T_USER, DoneeDbHelper.C_USER_ID + " = ?", args);
     }
 }

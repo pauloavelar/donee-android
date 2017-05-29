@@ -19,7 +19,7 @@ import java.util.Locale;
 import me.avelar.donee.R;
 import me.avelar.donee.controller.CollectionLogic;
 import me.avelar.donee.controller.FormsLogic;
-import me.avelar.donee.dao.CollectionDAO;
+import me.avelar.donee.dao.CollectionDao;
 import me.avelar.donee.model.Collection;
 import me.avelar.donee.view.ActivityCollect;
 
@@ -225,7 +225,7 @@ public class CollectionsAdapter extends BaseAdapter implements ListAdapter, View
         Collection c;
         switch (v.getId()) {
             case R.id.collection_action_edit:
-                c = CollectionDAO.findComplete(mContext, getItemCollection(position));
+                c = CollectionDao.findComplete(mContext, getItemCollection(position));
                 if (c == null) return;
                 Intent next = new Intent(mContext, ActivityCollect.class);
                 next.putExtra(FormsLogic.EXTRA_FORM, c.getRelatedForm());
@@ -236,7 +236,7 @@ public class CollectionsAdapter extends BaseAdapter implements ListAdapter, View
                 c = getItemCollection(position);
                 if (c != null) {
                     removeByCollectionId(c.getLocalId());
-                    CollectionDAO.delete(mContext, c);
+                    CollectionDao.delete(mContext, c);
                 }
                 break;
         }

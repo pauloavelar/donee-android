@@ -7,7 +7,7 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import java.util.ArrayList;
 
-import me.avelar.donee.dao.FormDAO;
+import me.avelar.donee.dao.FormDao;
 import me.avelar.donee.model.Form;
 import me.avelar.donee.model.Session;
 import me.avelar.donee.util.ConnectivityHelper;
@@ -39,7 +39,7 @@ public final class FormsLogic {
         } else {
             // user has previously synced forms -- show cached data
             Session currentSession = SessionManager.getLastSession(context);
-            ArrayList<Form> forms = FormDAO.find(context, currentSession.getUser());
+            ArrayList<Form> forms = FormDao.find(context, currentSession.getUser());
             sendBroadcast(context, RequestStatus.SUCCEEDED, forms);
         }
     }
@@ -50,8 +50,8 @@ public final class FormsLogic {
         service.listForms(session.getId(), new Callback<ArrayList<Form>>() {
             @Override
             public void success(ArrayList<Form> forms, Response response) {
-                FormDAO.removeAllFromUser(context, session.getUser());
-                FormDAO.insert(context, forms, session.getUser());
+                FormDao.removeAllFromUser(context, session.getUser());
+                FormDao.insert(context, forms, session.getUser());
                 sendBroadcast(context, RequestStatus.SUCCEEDED, forms);
             }
 

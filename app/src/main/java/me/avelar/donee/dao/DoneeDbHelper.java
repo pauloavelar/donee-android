@@ -4,13 +4,14 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+@SuppressWarnings("WeakerAccess")
 public class DoneeDbHelper extends SQLiteOpenHelper {
 
     // useful constants
     public static final long DB_ERROR = -1;
 
     // database information
-    public static final int DATABASE_VERSION = 13;
+    public static final int DATABASE_VERSION = 16;
     public static final String DATABASE_NAME = "donee.db";
 
     // table names
@@ -31,7 +32,6 @@ public class DoneeDbHelper extends SQLiteOpenHelper {
     public static final String C_USER_NAME    = "name";
     public static final String C_USER_EMAIL   = "email";
     public static final String C_USER_ACCOUNT = "account";
-    public static final String C_USER_PHOTO   = "photo_name";
     public static final String C_USER_SYNCED  = "last_updated";
 
     public static final String C_FORM_ID           = "_id";
@@ -62,10 +62,10 @@ public class DoneeDbHelper extends SQLiteOpenHelper {
     public static final String C_FIELD_ORDER     = "ordering";
     public static final String C_VFIELD_HAS_RULE = "has_rule";
 
-    public static final String C_COLLECTION_ID   = "_id";
-    public static final String C_COLLECTION_FORM = "form";
-    public static final String C_COLLECTION_USER = "user";
-    public static final String C_COLLECTION_TIME = "date_time";
+    public static final String C_COLLECTION_ID        = "_id";
+    public static final String C_COLLECTION_FORM      = "form";
+    public static final String C_COLLECTION_USER      = "user";
+    public static final String C_COLLECTION_TIME      = "date_time";
     public static final String C_COLLECTION_SUBMITTED = "submitted";
     public static final String C_COLLECTION_LATITUDE  = "latitude";
     public static final String C_COLLECTION_LONGITUDE = "longitude";
@@ -81,73 +81,90 @@ public class DoneeDbHelper extends SQLiteOpenHelper {
     public static final String V_COLLECTIONS = "vw_collections";
 
     // table creation
-    private static final String CREATE_SESSION =
-        "create table " + T_SESSION + " (" +
-            C_SESSION_ID   + " text primary key not null," +
-            C_SESSION_USER + " integer unique not null " +
-                "references " + T_USER + "(" + C_USER_ID + ") on delete cascade," +
-            C_SESSION_TIME + " integer default current_timestamp)";
     private static final String CREATE_USER =
         "create table " + T_USER + " (" +
-            C_USER_ID      + " integer primary key," +
-            C_USER_EMAIL   + " text unique not null," +
-            C_USER_NAME    + " text not null," +
-            C_USER_ACCOUNT + " text not null," +
-            C_USER_PHOTO   + " text," +
+            C_USER_ID      + " integer primary key, " +
+            C_USER_EMAIL   + " text unique not null, " +
+            C_USER_NAME    + " text not null, " +
+            C_USER_ACCOUNT + " text not null, " +
             C_USER_SYNCED  + " integer)";
+    private static final String CREATE_SESSION =
+        "create table " + T_SESSION + " (" +
+            C_SESSION_ID   + " text primary key not null, " +
+            C_SESSION_USER + " integer unique not null, " +
+            C_SESSION_TIME + " integer default current_timestamp, " +
+            // When are users deleted? ONLY in Settings > Remove user
+            "foreign key (" + C_SESSION_USER + ") " +
+                "references " + T_USER + "(" + C_USER_ID + ") on delete cascade, "+
+            "unique(" + C_SESSION_USER + ") on conflict replace)";
     private static final String CREATE_FORM =
         "create table " + T_FORM + " (" +
-            C_FORM_ID           + " integer primary key," +
-            C_FORM_NAME         + " text not null," +
-            C_FORM_CATEGORY     + " text," +
-            C_FORM_DESCRIPTION  + " text," +
-            C_FORM_HAS_ICON     + " integer default 0," +
-            C_FORM_USE_LOCATION + " integer default 0," +
+            C_FORM_ID           + " integer primary key, " +
+            C_FORM_NAME         + " text not null, " +
+            C_FORM_CATEGORY     + " text, " +
+            C_FORM_DESCRIPTION  + " text, " +
+            C_FORM_HAS_ICON     + " integer default 0, " +
+            C_FORM_USE_LOCATION + " integer default 0, " +
             C_FORM_ACTIVE       + " integer default 1)";
     private static final String CREATE_USER_FORM =
         "create table " + T_USER_FORM + " (" +
-            C_UF_USER + " integer not null " +
-                "references " + T_USER + "(" + C_USER_ID + ") on delete cascade," +
-            C_UF_FORM + " integer not null " +
-                "references " + T_FORM + "(" + C_FORM_ID + ") on delete cascade," +
-            "unique(" + C_UF_USER + "," + C_UF_FORM + ") on conflict replace)";
+            C_UF_USER + " integer not null, " +
+            C_UF_FORM + " integer not null, " +
+            // When are users deleted? ONLY in Settings > Remove user
+            "foreign key (" + C_UF_USER + ") " +
+                "references " + T_USER + "(" + C_USER_ID + ") on delete cascade, " +
+            // When are forms deleted? Never. No way to safely remove them in multi-user mode
+            "foreign key (" + C_UF_FORM + ") " +
+                "references " + T_FORM + "(" + C_FORM_ID + ") on delete cascade, " +
+            "unique(" + C_UF_USER + "," + C_UF_FORM + ") on conflict ignore)";
     private static final String CREATE_FIELD =
         "create table " + T_FIELD + " (" +
-            C_FIELD_ID        + " integer primary key," +
-            C_FIELD_FORM      + " integer not null " +
-                "references " + T_FORM + "(" + C_FORM_ID + ") on delete cascade," +
-            C_FIELD_TYPE      + " text not null," +
-            C_FIELD_LABEL     + " text," +
-            C_FIELD_HINT      + " text," +
-            C_FIELD_HEIGHT    + " integer default 50," +
-            C_FIELD_MULTILINE + " integer default 0," +
-            C_FIELD_OPTIONS   + " text," +
-            C_FIELD_STARTING  + " text," +
-            C_FIELD_REGEXP    + " text," +
-            C_FIELD_REQUIRED  + " integer default 0," +
-            C_FIELD_MIN_VALUE + " real," +
-            C_FIELD_MAX_VALUE + " real," +
-            C_FIELD_ORDER     + " integer default 0," +
-            C_FIELD_MESSAGE   + " text)";
+            C_FIELD_ID        + " integer primary key, " +
+            C_FIELD_FORM      + " integer not null, " +
+            C_FIELD_TYPE      + " text not null, " +
+            C_FIELD_LABEL     + " text, " +
+            C_FIELD_HINT      + " text, " +
+            C_FIELD_HEIGHT    + " integer default 50, " +
+            C_FIELD_MULTILINE + " integer default 0, " +
+            C_FIELD_OPTIONS   + " text, " +
+            C_FIELD_STARTING  + " text, " +
+            C_FIELD_REGEXP    + " text, " +
+            C_FIELD_REQUIRED  + " integer default 0, " +
+            C_FIELD_MIN_VALUE + " real, " +
+            C_FIELD_MAX_VALUE + " real, " +
+            C_FIELD_ORDER     + " integer default 0, " +
+            C_FIELD_MESSAGE   + " text," +
+            // When are forms deleted? Never. No way to safely remove them in multi-user mode
+            "foreign key (" + C_FIELD_FORM + ") " +
+                "references " + T_FORM + "(" + C_FORM_ID + ") on delete cascade)";
     private static final String CREATE_COLLECTION =
         "create table " + T_COLLECTION + " (" +
-            C_COLLECTION_ID   + " integer primary key," +
-            C_COLLECTION_FORM + " integer not null " +
-                "references " + T_FORM + "(" + C_FORM_ID + ") on delete restrict," +
-            C_COLLECTION_USER + " integer not null " +
-                "references " + T_USER + "(" + C_USER_ID + ") on delete cascade," +
-            C_COLLECTION_TIME + " integer," +
-            C_COLLECTION_LATITUDE  + " real," +
-            C_COLLECTION_LONGITUDE + " real," +
-            C_COLLECTION_SUBMITTED + " integer default 0)";
+            C_COLLECTION_ID   + " integer primary key, " +
+            C_COLLECTION_FORM + " integer not null, " +
+            C_COLLECTION_USER + " integer not null, " +
+            C_COLLECTION_TIME + " integer, " +
+            C_COLLECTION_LATITUDE  + " real, " +
+            C_COLLECTION_LONGITUDE + " real, " +
+            C_COLLECTION_SUBMITTED + " integer default 0, " +
+            // When are users deleted? ONLY in Settings > Remove user
+            "foreign key (" + C_COLLECTION_USER + ") " +
+                "references " + T_USER + "(" + C_USER_ID + ") on delete cascade, " +
+            // When are forms deleted? Never. No way to safely remove them in multi-user mode
+            "foreign key (" + C_COLLECTION_FORM + ") " +
+                "references " + T_FORM + "(" + C_FORM_ID + ") on delete cascade)";
     private static final String CREATE_ITEM =
         "create table " + T_ITEM + " (" +
-            C_ITEM_ID         + " integer primary key," +
-            C_ITEM_COLLECTION + " integer not null " +
-                "references " + T_COLLECTION + "(" + C_COLLECTION_ID + ") on delete cascade," +
-            C_ITEM_FIELD      + " integer not null " +
-                "references " + T_FIELD + "(" + C_FIELD_ID + ") on delete no action," +
-            C_ITEM_VALUE      + " text)";
+            C_ITEM_ID         + " integer primary key, " +
+            C_ITEM_COLLECTION + " integer not null, " +
+            C_ITEM_FIELD      + " integer not null, " +
+            C_ITEM_VALUE      + " text, " +
+            // When are collections deleted? In Drafts and Outbox > Delete button
+            "foreign key (" + C_ITEM_COLLECTION + ") " +
+                "references " + T_COLLECTION + "(" + C_COLLECTION_ID + ") on delete cascade, " +
+            // When are fields deleted? ONLY when a form structure changed and fields were removed
+            "foreign key (" + C_ITEM_FIELD + ") " +
+                "references " + T_FIELD + "(" + C_FIELD_ID + ") on delete no action)";
+
     private static final String CREATE_VIEW_FORMS =
         "create view " + V_USER_FORM + " as " +
             "select " + T_USER_FORM + "." + C_UF_USER + ", " + T_FORM + ".* " +
@@ -185,8 +202,8 @@ public class DoneeDbHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_SESSION);
         db.execSQL(CREATE_USER);
+        db.execSQL(CREATE_SESSION);
         db.execSQL(CREATE_FORM);
         db.execSQL(CREATE_USER_FORM);
         db.execSQL(CREATE_FIELD);
@@ -215,13 +232,13 @@ public class DoneeDbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP VIEW  IF EXISTS vw_user_form");
         db.execSQL("DROP VIEW  IF EXISTS vw_fields");
         db.execSQL("DROP VIEW  IF EXISTS vw_collections");
-        db.execSQL("DROP TABLE IF EXISTS session");
-        db.execSQL("DROP TABLE IF EXISTS user_form");
-        db.execSQL("DROP TABLE IF EXISTS user");
         db.execSQL("DROP TABLE IF EXISTS item");
         db.execSQL("DROP TABLE IF EXISTS collection");
+        db.execSQL("DROP TABLE IF EXISTS user_form");
         db.execSQL("DROP TABLE IF EXISTS field");
         db.execSQL("DROP TABLE IF EXISTS form");
+        db.execSQL("DROP TABLE IF EXISTS session");
+        db.execSQL("DROP TABLE IF EXISTS user");
         onCreate(db);
     }
 

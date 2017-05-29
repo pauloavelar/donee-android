@@ -5,9 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +15,8 @@ import me.avelar.donee.model.Collection;
 import me.avelar.donee.model.Form;
 import me.avelar.donee.model.User;
 
-public final class CollectionDAO {
+@SuppressWarnings("WeakerAccess")
+public final class CollectionDao {
 
     private static final int REPLACE = SQLiteDatabase.CONFLICT_REPLACE;
     private static final int DRAFT   = 0;
@@ -58,9 +59,9 @@ public final class CollectionDAO {
         return result;
     }
 
-    private static void insertItem(SQLiteDatabase db, long collectionId,
+    private static void insertItem(@NonNull SQLiteDatabase db, long collectionId,
                                    Map.Entry<String, String> item) throws SQLException {
-        if (db == null || !db.isOpen() || collectionId <= 0 || item == null) throw new SQLException();
+        if (!db.isOpen() || collectionId <= 0 || item == null) throw new SQLException();
 
         ContentValues values = new ContentValues();
         values.put(DoneeDbHelper.C_ITEM_COLLECTION, collectionId);
@@ -85,31 +86,32 @@ public final class CollectionDAO {
 
         String  where = DoneeDbHelper.C_COLLECTION_USER      + " = ? AND " +
                         DoneeDbHelper.C_COLLECTION_SUBMITTED + " = ?";
-        String[] args = { user.getId(), Long.toString(collectionType) };
+        String[] args = { user.getId(), Integer.toString(collectionType) };
 
         Cursor cursor = db.query(DoneeDbHelper.V_COLLECTIONS, null, where, args, null, null, null);
 
-        int id            = cursor.getColumnIndex(DoneeDbHelper.C_COLLECTION_ID);
-        int formId        = cursor.getColumnIndex(DoneeDbHelper.C_COLLECTION_FORM);
-        int formName      = cursor.getColumnIndex(DoneeDbHelper.C_FORM_NAME);
-        int formCategory  = cursor.getColumnIndex(DoneeDbHelper.C_FORM_CATEGORY);
-        int submitted     = cursor.getColumnIndex(DoneeDbHelper.C_COLLECTION_SUBMITTED);
-        int latitude      = cursor.getColumnIndex(DoneeDbHelper.C_COLLECTION_LATITUDE);
-        int longitude     = cursor.getColumnIndex(DoneeDbHelper.C_COLLECTION_LONGITUDE);
-        int submittedTime = cursor.getColumnIndex(DoneeDbHelper.C_COLLECTION_TIME);
+        final int ID             = cursor.getColumnIndex(DoneeDbHelper.C_COLLECTION_ID);
+        final int FORM_ID        = cursor.getColumnIndex(DoneeDbHelper.C_COLLECTION_FORM);
+        final int FORM_NAME      = cursor.getColumnIndex(DoneeDbHelper.C_FORM_NAME);
+        final int FORM_CATEGORY  = cursor.getColumnIndex(DoneeDbHelper.C_FORM_CATEGORY);
+        final int SUBMITTED      = cursor.getColumnIndex(DoneeDbHelper.C_COLLECTION_SUBMITTED);
+        final int LATITUDE       = cursor.getColumnIndex(DoneeDbHelper.C_COLLECTION_LATITUDE);
+        final int LONGITUDE      = cursor.getColumnIndex(DoneeDbHelper.C_COLLECTION_LONGITUDE);
+        final int SUBMITTED_TIME = cursor.getColumnIndex(DoneeDbHelper.C_COLLECTION_TIME);
 
-        Form form; Collection c;
+        Form form;
+        Collection c;
         while (cursor.moveToNext()) {
             form = new Form(
-                cursor.getString(formId),
-                cursor.getString(formName),
-                cursor.getString(formCategory)
+                cursor.getString(FORM_ID),
+                cursor.getString(FORM_NAME),
+                cursor.getString(FORM_CATEGORY)
             );
-            c = new Collection(cursor.getString(id), new Date(cursor.getLong(submittedTime)), form);
-            if (!cursor.isNull(latitude)) {
-                c.setLocation(cursor.getDouble(latitude), cursor.getDouble(longitude));
+            c = new Collection(cursor.getString(ID), cursor.getLong(SUBMITTED_TIME), form);
+            if (!cursor.isNull(LATITUDE)) {
+                c.setLocation(cursor.getDouble(LATITUDE), cursor.getDouble(LONGITUDE));
             }
-            c.setSubmitted(cursor.getInt(submitted) != 0);
+            c.setSubmitted(cursor.getInt(SUBMITTED) != 0);
             collections.add(c);
         }
         cursor.close();
@@ -117,13 +119,12 @@ public final class CollectionDAO {
     }
 
     // When this is called, the input collection is missing the values map
-    public static Collection findComplete(Context context, Collection collection) {
-        if (collection == null || collection.getRelatedForm() == null || context == null) return collection;
-
+    public static Collection findComplete(@NonNull Context context, Collection collection) {
+        if (collection == null || collection.getRelatedForm() == null) return collection;
         SQLiteDatabase db = DoneeDbHelper.getInstance(context).getReadableDatabase();
 
         // completing the input collection
-        Form form = FormDAO.find(db, collection.getRelatedForm().getId());
+        Form form = FormDao.find(db, collection.getRelatedForm().getId());
         collection.setRelatedForm(form);
         Map<String, String> items = findItems(db, collection);
         collection.setValues(items);
@@ -154,14 +155,12 @@ public final class CollectionDAO {
     public static void delete(Context context, Collection collection) {
         SQLiteDatabase db = DoneeDbHelper.getInstance(context).getWritableDatabase();
         String[] args = { collection.getLocalId() };
-
         db.delete(DoneeDbHelper.T_COLLECTION, DoneeDbHelper.C_COLLECTION_ID + " = ?", args);
     }
 
-    public static void delete(Context context, int submitted) {
+    public static void deleteAll(Context context, int submitted) {
         SQLiteDatabase db = DoneeDbHelper.getInstance(context).getWritableDatabase();
         String[] args = { Integer.toString(submitted) };
-
         db.delete(DoneeDbHelper.T_COLLECTION, DoneeDbHelper.C_COLLECTION_SUBMITTED + " = ?", args);
     }
 

@@ -6,11 +6,12 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import me.avelar.donee.model.Session;
 import me.avelar.donee.model.User;
 
-public final class SessionDAO {
+public final class SessionDao {
 
     public static void insert(@NonNull Context context, @NonNull Session session) {
         SQLiteDatabase db = DoneeDbHelper.getInstance(context).getWritableDatabase();
@@ -22,12 +23,11 @@ public final class SessionDAO {
 
         db.beginTransaction();
         try {
-            UserDAO.insert(db, user);
-            long result = db.insertWithOnConflict(DoneeDbHelper.T_SESSION, null,
-                                        sessionValues, SQLiteDatabase.CONFLICT_REPLACE);
-            if (result == DoneeDbHelper.DB_ERROR) throw new SQLException();
-
+            UserDao.insert(db, user);
+            db.insertOrThrow(DoneeDbHelper.T_SESSION, null, sessionValues);
             db.setTransactionSuccessful();
+        } catch (SQLException ignore) {
+            Log.e("donee.db", ignore.getMessage());
         } finally {
             db.endTransaction();
         }
@@ -71,7 +71,7 @@ public final class SessionDAO {
         cursor.moveToFirst();
         String sessionId = cursor.getString(cursor.getColumnIndex(DoneeDbHelper.C_SESSION_ID));
         long userId      = cursor.getLong(cursor.getColumnIndex(DoneeDbHelper.C_SESSION_USER));
-        User sessionUser = UserDAO.find(context, String.valueOf(userId));
+        User sessionUser = UserDao.find(context, String.valueOf(userId));
         return new Session(sessionId, sessionUser);
     }
 

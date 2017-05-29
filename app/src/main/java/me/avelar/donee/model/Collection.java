@@ -30,6 +30,10 @@ public class Collection implements Parcelable {
         values = new HashMap<>();
     }
 
+    public Collection(String localId, Long submittedTime, Form relatedForm) {
+        this(localId, new Date(submittedTime), relatedForm);
+    }
+
     public Collection(String localId, Date submittedTime, Form relatedForm) {
         this.localId = localId;
         this.submittedTime = submittedTime;

@@ -1,5 +1,6 @@
 package me.avelar.donee.controller;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -28,6 +29,7 @@ public final class WelcomeLogic {
         TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
         String deviceAlias = (Build.MANUFACTURER + " " + Build.MODEL).trim();
 
+        @SuppressLint("HardwareIds")
         LoginRequest request = new LoginRequest(email, password, tm.getDeviceId(), deviceAlias);
         service.performLogin(request, new Callback<Session>() {
             @Override

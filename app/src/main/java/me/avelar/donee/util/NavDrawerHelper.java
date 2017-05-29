@@ -11,6 +11,7 @@ import me.avelar.donee.view.FragmentCollections;
 import me.avelar.donee.view.FragmentForms;
 import me.avelar.donee.view.FragmentSettings;
 
+@SuppressWarnings("WeakerAccess")
 public class NavDrawerHelper {
 
     public static final int M_FORMS = 1, M_DRAFTS = 2, M_OUTBOX = 3, M_SETTINGS = 5, M_LOGOUT = 6;

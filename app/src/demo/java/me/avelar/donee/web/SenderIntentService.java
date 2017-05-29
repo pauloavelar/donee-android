@@ -14,7 +14,7 @@ import java.util.List;
 
 import me.avelar.donee.R;
 import me.avelar.donee.controller.SessionManager;
-import me.avelar.donee.dao.CollectionDAO;
+import me.avelar.donee.dao.CollectionDao;
 import me.avelar.donee.model.Collection;
 import me.avelar.donee.model.Session;
 import me.avelar.donee.util.IntentFactory;
@@ -53,7 +53,7 @@ public class SenderIntentService extends IntentService {
         NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         Notification.Builder builder = NotificationFactory.create(context, Type.ONGOING_SYNC);
 
-        List<Collection> collections = CollectionDAO.findOutbox(context, session.getUser());
+        List<Collection> collections = CollectionDao.findOutbox(context, session.getUser());
 
         // disabling the submit menu option
         Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
@@ -64,7 +64,7 @@ public class SenderIntentService extends IntentService {
         int completed = 0, total = collections.size();
         for (int i = 0; i < total; i++) {
             // getting reference to the current item
-            Collection collection = CollectionDAO.findComplete(context, collections.get(i));
+            Collection collection = CollectionDao.findComplete(context, collections.get(i));
 
             // updating the notification
             builder.setProgress(total, completed, false);
@@ -76,9 +76,9 @@ public class SenderIntentService extends IntentService {
                 Thread.sleep(total <= 5 ? 1000 : 500);
             } catch (Exception ignore) { }
 
-            // update progress, delete local version and notify the UI
+            // update progress, deleteAll local version and notify the UI
             completed++;
-            CollectionDAO.delete(context, collection);
+            CollectionDao.delete(context, collection);
             sendBroadcast(context, ITEM_SENT, collection.getLocalId());
         }
 
